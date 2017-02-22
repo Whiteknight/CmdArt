@@ -1,14 +1,13 @@
-﻿using System;
+﻿using CmdArt.Colors;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
-using CmdArt.Colors;
 
 namespace CmdArt.Rendering.Images
 {
     public class ConsolePixelRepository
     {
-        private readonly IReadOnlyList<ConsolePixel> _pixels;
         private readonly IReadOnlyList<ConsolePixel> _grayscalePixels;
         private readonly Dictionary<int, ConsolePixel> _pixelCache;
 
@@ -24,7 +23,7 @@ namespace CmdArt.Rendering.Images
                     gsPixels.Add(p.AsInt, p);
             }
 
-            _pixels = pixels.Values.ToList();
+            AllPixels = pixels.Values.ToList();
             _grayscalePixels = gsPixels.Values.ToList();
             _pixelCache = new Dictionary<int, ConsolePixel>();
         }
@@ -39,12 +38,13 @@ namespace CmdArt.Rendering.Images
             if (_pixelCache.ContainsKey(key))
                 return _pixelCache[key];
 
-            IReadOnlyList<ConsolePixel> pixels = _pixels;
+            IReadOnlyList<ConsolePixel> pixels = AllPixels;
             if (c.IsGrayscale())
                 pixels = _grayscalePixels;
 
             var w = pixels
-                .Select(p => new {
+                .Select(p => new
+                {
                     Pixel = p,
                     Distance = c.DistanceTo(p.Color)
                 })
@@ -64,12 +64,9 @@ namespace CmdArt.Rendering.Images
         public IEnumerable<ConsolePixel> RelatedColors(ConsoleColor cc)
         {
             ConsoleColor c1 = cc.MakeBright();
-            return _pixels.Where(p => p.BackgroundColor.MakeBright() == c1 || p.ForegroundColor.MakeBright() == c1);
+            return AllPixels.Where(p => p.BackgroundColor.MakeBright() == c1 || p.ForegroundColor.MakeBright() == c1);
         }
 
-        public IReadOnlyList<ConsolePixel> AllPixels
-        {
-            get { return _pixels; }
-        }
+        public IReadOnlyList<ConsolePixel> AllPixels { get; }
     }
 }

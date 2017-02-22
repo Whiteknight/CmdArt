@@ -7,7 +7,7 @@ namespace CmdArt
     public interface ISize : IEquatable<ISize>
     {
         int Width { get; }
-        int Height { get;  }
+        int Height { get; }
     }
 
     public class Size : ISize
@@ -18,8 +18,8 @@ namespace CmdArt
             Width = width;
         }
 
-        public int Width { get; private set; }
-        public int Height { get; private set; }
+        public int Width { get; }
+        public int Height { get; }
 
         public static Size Maximum(IReadOnlyList<ISize> sizes)
         {

@@ -19,7 +19,7 @@ namespace CmdArt.Rendering.Shapes
             _symbol = symbol;
         }
 
-        public void Render(IScreenBuffer buffer)
+        public void Render(IPixelBuffer buffer)
         {
             // Rectangle render logic is in IScreenBuffer
             buffer.Set(_region, _symbol);

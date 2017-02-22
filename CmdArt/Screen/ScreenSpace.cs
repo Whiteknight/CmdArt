@@ -1,21 +1,11 @@
-﻿using System;
+﻿using CmdArt.Rendering;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using CmdArt.Rendering;
 
 namespace CmdArt.Screen
 {
-    public interface ILayer
-    {
-        string Name { get; }
-        ILocation Offset { get; }
-        ISize Size { get; }
-        IScreenBuffer Buffer { get; }
-        void MoveTo(ILocation newLocation);
-        IList<IRenderable> Renderables { get; }
-        IList<IDecoration> LayerDecorations { get; }
-        void Render();
-    }
+    // TODO: We don't want this, but some of this can be moved to the new Window abstraction
     public class ScreenSpace
     {
         private const string BaseLayerName = "Base";
@@ -63,7 +53,7 @@ namespace CmdArt.Screen
         public ILayer CreateLayer(string name, ILocation offset, ISize size)
         {
             // TODO: Names should be unique
-            var buffer = new ScreenBuffer(Size);
+            var buffer = new PixelBuffer(Size);
             var layer = new Layer(name ?? DefaultLayerName(), offset, buffer);
             _layers.Add(layer);
             return layer;
@@ -96,9 +86,9 @@ namespace CmdArt.Screen
         //    }
         //}
 
-        public IScreenBuffer Flatten()
+        public IPixelBuffer Flatten()
         {
-            var newBuffer = new ScreenBuffer(Size);
+            var newBuffer = new PixelBuffer(Size);
             for (int j = 0; j < Size.Height; j++)
             {
                 for (int i = 0; i < Size.Width; i++)
@@ -127,7 +117,7 @@ namespace CmdArt.Screen
             {
                 Name = BaseLayerName;
                 Offset = Location.Origin;
-                Buffer = new ScreenBuffer(size);
+                Buffer = new PixelBuffer(size);
                 Renderables = new List<IRenderable>();
                 LayerDecorations = new List<IDecoration>();
             }
@@ -135,7 +125,7 @@ namespace CmdArt.Screen
             public string Name { get; private set; }
             public ILocation Offset { get; private set; }
             public ISize Size { get { return Buffer.Size; } }
-            public IScreenBuffer Buffer { get; private set; }
+            public IPixelBuffer Buffer { get; private set; }
             public void MoveTo(ILocation newLocation)
             {
             }
@@ -152,7 +142,7 @@ namespace CmdArt.Screen
 
         private class Layer : ILayer
         {
-            public Layer(string name, ILocation offset, IScreenBuffer buffer)
+            public Layer(string name, ILocation offset, IPixelBuffer buffer)
             {
                 Buffer = buffer;
                 Offset = offset;
@@ -163,7 +153,7 @@ namespace CmdArt.Screen
             public string Name { get; private set; }
             public ILocation Offset { get; private set; }
             public ISize Size { get { return Buffer.Size; } }
-            public IScreenBuffer Buffer { get; private set; }
+            public IPixelBuffer Buffer { get; private set; }
             public void MoveTo(ILocation newLocation)
             {
                 Offset = newLocation;

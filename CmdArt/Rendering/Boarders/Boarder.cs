@@ -54,7 +54,7 @@ namespace CmdArt.Rendering.Boarders
             return region.RelativeToAbsolute(new Region(Left, Top, region.Width - Left - Right, region.Height - Top - Bottom));
         }
 
-        public Region Render(IScreenBuffer buffer, Region region)
+        public Region Render(IPixelBuffer buffer, Region region)
         {
             if (region.Width < 3 || region.Height < 3)
                 return region;
@@ -69,7 +69,7 @@ namespace CmdArt.Rendering.Boarders
             return InnerRegion(region);
         }
 
-        private void RenderBottomBoarder(IScreenBuffer buffer, Region region, Palette palette)
+        private void RenderBottomBoarder(IPixelBuffer buffer, Region region, Palette palette)
         {
             if (_left || _bottom)
                 buffer.Set(region.Left, region.Top + region.Height - 1, palette, _chars.LowerLeft);
@@ -79,7 +79,7 @@ namespace CmdArt.Rendering.Boarders
                 buffer.Set(region.Left + region.Width - 1, region.Top + region.Height - 1, palette, _chars.LowerRight);
         }
 
-        private void RenderRightBoarder(IScreenBuffer buffer, Region region, Palette palette)
+        private void RenderRightBoarder(IPixelBuffer buffer, Region region, Palette palette)
         {
             if (_right)
             {
@@ -88,7 +88,7 @@ namespace CmdArt.Rendering.Boarders
             }
         }
 
-        private void RenderLeftBoarder(IScreenBuffer buffer, Region region, Palette palette)
+        private void RenderLeftBoarder(IPixelBuffer buffer, Region region, Palette palette)
         {
             if (_left)
             {
@@ -97,7 +97,7 @@ namespace CmdArt.Rendering.Boarders
             }
         }
 
-        private void RenderTopBoarder(IScreenBuffer buffer, Region region, Palette palette)
+        private void RenderTopBoarder(IPixelBuffer buffer, Region region, Palette palette)
         {
             if (_top || _left)
                 buffer.Set(region.Left, region.Top, palette, _chars.UpperLeft);

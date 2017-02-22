@@ -13,7 +13,7 @@ namespace CmdArt.Rendering.Images
             _imageLocation = imageLocation;
         }
 
-        public void Render(IScreenBuffer buffer)
+        public void Render(IPixelBuffer buffer)
         {
             IImageFrame imageFrame = _imageBuffer.GetBuffer(0);
             ConsolePixel[,] pixels = imageFrame.GetRegionContents(new Region(_imageLocation.Left, _imageLocation.Top, buffer.Size.Width, buffer.Size.Height));

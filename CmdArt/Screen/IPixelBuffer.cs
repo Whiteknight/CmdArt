@@ -2,8 +2,9 @@
 
 namespace CmdArt.Screen
 {
-    public interface IScreenBuffer
+    public interface IPixelBuffer
     {
+        // TODO: Shrink this interface. Several of these methods and overloads can become extension methods
         ISize Size { get; }
         Palette DefaultPalette { get; set; }
         IEnumerable<ILocation> AllVisible();

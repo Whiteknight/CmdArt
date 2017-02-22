@@ -3,7 +3,7 @@
     public interface ILocation
     {
         int Left { get; }
-        int Top { get;  }
+        int Top { get; }
     }
 
     public struct Location : ILocation
@@ -18,9 +18,6 @@
         public int Left { get; private set; }
         public int Top { get; private set; }
 
-        public static ILocation Origin
-        {
-            get { return new Location(0, 0); }
-        }
+        public static ILocation Origin => new Location(0, 0);
     }
 }

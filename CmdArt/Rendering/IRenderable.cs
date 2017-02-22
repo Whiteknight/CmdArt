@@ -4,6 +4,6 @@ namespace CmdArt.Rendering
 {
     public interface IRenderable
     {
-        void Render(IScreenBuffer buffer);
+        void Render(IPixelBuffer buffer);
     }
 }

@@ -5,67 +5,50 @@ namespace CmdArt
 {
     public struct Region : ISize, ILocation
     {
-        private readonly int _left;
-        private readonly int _top;
-        private readonly int _width;
-        private readonly int _height;
-
         public Region(int left, int top, int width, int height)
         {
-            _left = left;
-            _top = top;
-            _width = width;
-            _height = height;
+            Left = left;
+            Top = top;
+            Width = width;
+            Height = height;
         }
 
         public Region(int left, int top, ISize size)
         {
-            _left = left;
-            _top = top;
-            _width = size.Width;
-            _height = size.Height;
+            Left = left;
+            Top = top;
+            Width = size.Width;
+            Height = size.Height;
         }
 
         public Region(ILocation location, int width, int height)
         {
-            _left = location.Left;
-            _top = location.Top;
-            _width = width;
-            _height = height;
+            Left = location.Left;
+            Top = location.Top;
+            Width = width;
+            Height = height;
         }
 
         public Region(ILocation location, ISize size)
         {
-            _left = location.Left;
-            _top = location.Top;
-            _width = size.Width;
-            _height = size.Height;
+            Left = location.Left;
+            Top = location.Top;
+            Width = size.Width;
+            Height = size.Height;
         }
 
-        public int Left { get { return _left; } }
-        public int Top { get { return _top; } }
-        public int Width { get { return _width; } }
-        public int Height { get { return _height; } }
+        public int Left { get; }
+        public int Top { get; }
+        public int Width { get; }
+        public int Height { get; }
 
-        public static Region None
-        {
-            get { return new Region(); }
-        }
+        public static Region None => new Region();
 
-        public static Region Window
-        {
-            get { return new Region(0, 0, Console.WindowWidth, Console.WindowHeight - 1); }
-        }
+        public static Region Window => new Region(0, 0, Console.WindowWidth, Console.WindowHeight - 1);
 
-        public static Region WindowMax
-        {
-            get { return new Region(0, 0, Console.LargestWindowWidth, Console.LargestWindowHeight); }
-        }
+        public static Region WindowMax => new Region(0, 0, Console.LargestWindowWidth, Console.LargestWindowHeight);
 
-        public static Region WindowMaxVertical
-        {
-            get { return new Region(0, 0, Console.WindowWidth, Console.LargestWindowHeight); }
-        }
+        public static Region WindowMaxVertical => new Region(0, 0, Console.WindowWidth, Console.LargestWindowHeight);
 
         public Region RelativeToAbsolute(Region relative)
         {
@@ -106,7 +89,7 @@ namespace CmdArt
 
         public override string ToString()
         {
-            return string.Format("({0},{1}) {2}x{3}", Left, Top, Width, Height);
+            return $"({Left},{Top}) {Width}x{Height}";
         }
 
         public string ToString(string fmt)

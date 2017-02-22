@@ -16,7 +16,7 @@ namespace CmdArt.Rendering.Boarders
             return region.RelativeToAbsolute(new Region(0, 0, region.Width - 1, region.Height - 1));
         }
 
-        public Region Render(IScreenBuffer buffer, Region region)
+        public Region Render(IPixelBuffer buffer, Region region)
         {
             for (int i = 1; i < region.Height - 1; i++)
             {

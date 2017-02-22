@@ -16,14 +16,14 @@ namespace CmdArt.Rendering.Images
             }
         }
 
-        static ConsolePixel GetGreyscalePixel(int i)
+        private static ConsolePixel GetGreyscalePixel(int i)
         {
             if (i > 12)
                 i = 12;
             if (i < 0)
                 i = 0;
 
-            ConsoleColor[] greyscales = new ConsoleColor[] { ConsoleColor.Black, ConsoleColor.DarkGray, ConsoleColor.Gray, ConsoleColor.White, ConsoleColor.White, ConsoleColor.White };
+            ConsoleColor[] greyscales = { ConsoleColor.Black, ConsoleColor.DarkGray, ConsoleColor.Gray, ConsoleColor.White, ConsoleColor.White, ConsoleColor.White };
             const string blocks = " \x2591\x2592\x2593 \x2591\x2592\x2593 \x2591\x2592\x2593 ";
             int gidx = i / 4;
             ConsoleColor bg = greyscales[gidx];

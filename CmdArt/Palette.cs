@@ -1,14 +1,11 @@
-﻿using System;
+﻿using CmdArt.Colors;
+using System;
 using System.Globalization;
-using CmdArt.Colors;
 
 namespace CmdArt
 {
     public struct Palette : IEquatable<Palette>
     {
-        private readonly byte _byteValue;
-        private readonly ConsoleColor _foreground;
-        private readonly ConsoleColor _background;
         // TODO: We should maintain a global source of randomness for all uses.
         private static readonly Random _random;
 
@@ -19,16 +16,16 @@ namespace CmdArt
 
         public Palette(byte byteValue)
         {
-            _byteValue = byteValue;
-            _foreground = ConsoleColorUtilities.GetForeground(byteValue);
-            _background = ConsoleColorUtilities.GetBackground(byteValue);
+            ByteValue = byteValue;
+            Foreground = ConsoleColorUtilities.GetForeground(byteValue);
+            Background = ConsoleColorUtilities.GetBackground(byteValue);
         }
 
         public Palette(ConsoleColor foreground, ConsoleColor background)
         {
-            _background = background;
-            _foreground = foreground;
-            _byteValue = ConsoleColorUtilities.ColorsToByte(foreground, background);
+            Background = background;
+            Foreground = foreground;
+            ByteValue = ConsoleColorUtilities.ColorsToByte(foreground, background);
         }
 
         public override string ToString()
@@ -47,20 +44,14 @@ namespace CmdArt
             throw new Exception("Unknown ToString format " + fmt);
         }
 
-        public byte ByteValue { get { return _byteValue; } }
+        public byte ByteValue { get; }
 
-        public ConsoleColor Foreground { get { return _foreground; } }
-        public ConsoleColor Background { get { return _background; } }
+        public ConsoleColor Foreground { get; }
+        public ConsoleColor Background { get; }
 
-        public static Palette Current
-        {
-            get { return new Palette(Console.ForegroundColor, Console.BackgroundColor); }
-        }
+        public static Palette Current => new Palette(Console.ForegroundColor, Console.BackgroundColor);
 
-        public static Palette Default
-        {
-            get { return new Palette(ConsoleColor.Gray, ConsoleColor.Black); }
-        }
+        public static Palette Default => new Palette(ConsoleColor.Gray, ConsoleColor.Black);
 
         public static Palette GetRandom()
         {
@@ -138,8 +129,8 @@ namespace CmdArt
 
             try
             {
-                var foreground = (ConsoleColor)Enum.Parse(typeof (ConsoleColor), parts[0]);
-                var background = (ConsoleColor)Enum.Parse(typeof (ConsoleColor), parts[1]);
+                var foreground = (ConsoleColor)Enum.Parse(typeof(ConsoleColor), parts[0]);
+                var background = (ConsoleColor)Enum.Parse(typeof(ConsoleColor), parts[1]);
                 palette = new Palette(foreground, background);
                 return true;
             }

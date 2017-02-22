@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 
-namespace CmdArt.Rendering.Images
+namespace CmdArt.Colors
 {
     public static class ConsoleColorUtilityExtensions
     {

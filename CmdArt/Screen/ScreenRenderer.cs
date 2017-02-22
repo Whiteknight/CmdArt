@@ -2,7 +2,7 @@
 {
     public class ScreenRenderer
     {
-        public void Render(IScreenBuffer buffer, ConsoleScreen screen)
+        public void Render(IPixelBuffer buffer, ConsoleScreen screen)
         {
             bool continues = false;
             byte currentColor = buffer.DefaultPalette.ByteValue;

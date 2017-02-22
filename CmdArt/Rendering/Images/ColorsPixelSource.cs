@@ -1,21 +1,19 @@
-﻿using System;
+﻿using CmdArt.Colors;
+using System;
 using System.Collections.Generic;
-using CmdArt.Colors;
 
 namespace CmdArt.Rendering.Images
 {
     public class ColorsPixelSource : IPixelSource
     {
-        #region Implementation of IPixelSource
-
         public IEnumerable<ConsolePixel> GetPixels()
         {
             ConsoleColor[] colors = {
-                ConsoleColor.Magenta, 
-                ConsoleColor.Red, 
-                ConsoleColor.Yellow, 
-                ConsoleColor.Green, 
-                ConsoleColor.Cyan, 
+                ConsoleColor.Magenta,
+                ConsoleColor.Red,
+                ConsoleColor.Yellow,
+                ConsoleColor.Green,
+                ConsoleColor.Cyan,
                 ConsoleColor.Blue
             };
 
@@ -54,7 +52,7 @@ namespace CmdArt.Rendering.Images
                     ConsolePixel p = GetBlendColorPixel(colors[i], ConsoleColor.Gray, j);
                     yield return p;
 
-                    p = GetBlendColorPixel(ConsoleColorExtensions.MakeDark(colors[i]), ConsoleColor.DarkGray, j);
+                    p = GetBlendColorPixel(colors[i].MakeDark(), ConsoleColor.DarkGray, j);
                     yield return p;
                 }
             }
@@ -83,9 +81,9 @@ namespace CmdArt.Rendering.Images
             if (i < 0)
                 i = 0;
             const string blocks = " \x2591\x2592\x2593 \x2591\x2592\x2593 \x2591\x2592\x2593 ";
-            ConsoleColor bright = ConsoleColorExtensions.MakeBright(baseColor);
-            ConsoleColor dark = ConsoleColorExtensions.MakeDark(baseColor);
-            ConsoleColor[] scales = new[] { ConsoleColor.Black, dark, bright, ConsoleColor.White, ConsoleColor.White };
+            ConsoleColor bright = baseColor.MakeBright();
+            ConsoleColor dark = baseColor.MakeDark();
+            ConsoleColor[] scales = { ConsoleColor.Black, dark, bright, ConsoleColor.White, ConsoleColor.White };
             int gidx = i / 4;
             ConsoleColor bg = scales[gidx];
             ConsoleColor fg = scales[gidx + 1];
@@ -93,18 +91,17 @@ namespace CmdArt.Rendering.Images
             return new ConsolePixel(new Palette(bg, fg), c);
         }
 
-        static ConsolePixel GetBlendColorPixel(ConsoleColor c1, ConsoleColor c2, int i)
+        private static ConsolePixel GetBlendColorPixel(ConsoleColor c1, ConsoleColor c2, int i)
         {
             if (i > 4)
                 i = 4;
             if (i < 0)
                 i = 0;
+            // TODO: Use the named constants from the Unicode or AsciiCodePage437 classes
             const string blocks = " \x2591\x2592\x2593";
             if (i == 4)
                 return new ConsolePixel(new Palette(c2, c1), ' ');
             return new ConsolePixel(new Palette(c1, c2), blocks[i]);
         }
-
-        #endregion
     }
 }

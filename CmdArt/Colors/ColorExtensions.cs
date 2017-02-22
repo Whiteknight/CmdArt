@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Drawing;
 
-namespace CmdArt.Rendering.Images
+namespace CmdArt.Colors
 {
     public static class ColorExtensions
     {
@@ -31,7 +31,7 @@ namespace CmdArt.Rendering.Images
 
         public static byte Brightness(this Color c)
         {
-            return (byte)((c.R + c.G + c.B) / 3); 
+            return (byte)((c.R + c.G + c.B) / 3);
         }
 
         public static Color Invert(this Color c)

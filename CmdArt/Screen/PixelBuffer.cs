@@ -1,29 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace CmdArt.Screen
 {
-    public class ScreenBuffer : IScreenBuffer
+    public class PixelBuffer : IPixelBuffer
     {
-        private readonly ISize _size;
         private readonly ScreenPixel[,] _buffer;
 
-        public ScreenBuffer(int width, int height)
+        public PixelBuffer(int width, int height)
             : this(new Size(width, height))
         {
         }
 
-        public ScreenBuffer(ISize size)
+        public PixelBuffer(ISize size)
         {
-            _size = size;
-            _buffer = new ScreenPixel[size.Width,size.Height];
+            Size = size;
+            _buffer = new ScreenPixel[size.Width, size.Height];
             DefaultPalette = Palette.Default;
         }
 
-        public ISize Size
-        {
-            get { return _size; }
-        }
+        public ISize Size { get; }
 
         public Palette DefaultPalette { get; set; }
 
@@ -222,110 +217,5 @@ namespace CmdArt.Screen
         //        }
         //    }
         //}
-    }
-
-    public class SubregionScreenBuffer : IScreenBuffer
-    {
-        public ISize Size { get; private set; }
-        public Palette DefaultPalette { get; set; }
-        public IEnumerable<ILocation> AllVisible()
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Set(int left, int top, Palette palette, char c)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Set(int left, int top, byte color, char c)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Set(int left, int top, Palette palette, string s)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Set(Region region, Palette palette, char c)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Set(int left, int top, char c)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Set(int left, int top, string s)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Set(Region region, char c)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void SetColor(int left, int top, Palette palette)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void SetColor(Region region, Palette palette)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void SetCharacter(int left, int top, char c)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void SetCharacter(Region region, char c)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Unset(int left, int top)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Unset(Region region)
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool IsVisible(int left, int top)
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool IsUpdated(int left, int top)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void SetUpdated(int left, int top, bool updated)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Palette GetColor(int left, int top)
-        {
-            throw new NotImplementedException();
-        }
-
-        public byte GetColorByte(int left, int top)
-        {
-            throw new NotImplementedException();
-        }
-
-        public char GetCharacter(int left, int top)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

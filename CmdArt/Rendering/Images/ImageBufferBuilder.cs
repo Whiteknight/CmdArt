@@ -36,7 +36,6 @@ namespace CmdArt.Rendering.Images
             private IPixelConverter _converter;
             private readonly Color _transparencyColor;
             private FrameDimension _frameDimension;
-            private readonly int _frameCount;
 
             public ImageFrameBuilder(Bitmap bmp, Region region, IImageSampler sampler, IPixelConverter converter, Color transparencyColor)
             {
@@ -47,7 +46,7 @@ namespace CmdArt.Rendering.Images
                 _transparencyColor = transparencyColor;
 
                 _frameDimension = new FrameDimension(bmp.FrameDimensionsList[0]);
-                _frameCount = bmp.GetFrameCount(_frameDimension);
+                NumberOfBuffers = bmp.GetFrameCount(_frameDimension);
             }
 
             #region Implementation of IDisposable
@@ -68,7 +67,8 @@ namespace CmdArt.Rendering.Images
 
             #region Implementation of IImageFrameBuilder
 
-            public int NumberOfBuffers { get { return _frameCount; } }
+            public int NumberOfBuffers { get; }
+
             public IImageFrame Build(int bufferIdx)
             {
                 return BuildBuffer(_region, _bmp, _frameDimension, bufferIdx);

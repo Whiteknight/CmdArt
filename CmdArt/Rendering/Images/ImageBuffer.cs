@@ -13,30 +13,19 @@ namespace CmdArt.Rendering.Images
     public sealed class ImageBuffer : IImageBuffer, IDisposable
     {
         private readonly ImageFrameSet _imageFrames;
-        private readonly Region _region;
-        private readonly int _numberOfBuffers;
 
         public ImageBuffer(IImageFrameBuilder builder, Region region)
         {
             _imageFrames = new ImageFrameSet(builder);
-            _region = region;
-            _numberOfBuffers = builder.NumberOfBuffers;
+            Region = region;
+            NumberOfBuffers = builder.NumberOfBuffers;
         }
 
-        public Region Region
-        {
-            get { return _region; }
-        }
+        public Region Region { get; }
 
-        public IEnumerable<IImageFrame> Buffers
-        {
-            get { return _imageFrames; }
-        }
+        public IEnumerable<IImageFrame> Buffers => _imageFrames;
 
-        public int NumberOfBuffers
-        {
-            get { return _numberOfBuffers; }
-        }
+        public int NumberOfBuffers { get; }
 
         public IImageFrame GetBuffer(int bufferIdx)
         {
@@ -102,11 +91,10 @@ namespace CmdArt.Rendering.Images
 
             public void Dispose()
             {
-                if (_builder != null)
-                {
-                    _builder.Dispose();
-                    _builder = null;
-                }
+                if (_builder == null)
+                    return;
+                _builder.Dispose();
+                _builder = null;
             }
 
             #endregion

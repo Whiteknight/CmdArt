@@ -9,8 +9,9 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>CmdArt</RootNamespace>
     <AssemblyName>CmdArt</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -20,6 +21,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <LangVersion>6</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -55,9 +57,9 @@
     <Compile Include="Rendering\DecorationSide.cs" />
     <Compile Include="Rendering\IDecoration.cs" />
     <Compile Include="Rendering\Images\Animator.cs" />
-    <Compile Include="Rendering\Images\ColorExtensions.cs" />
+    <Compile Include="Colors\ColorExtensions.cs" />
     <Compile Include="Rendering\Images\ColorsPixelSource.cs" />
-    <Compile Include="Rendering\Images\ConsoleColorExtensions.cs" />
+    <Compile Include="Colors\ConsoleColorUtilityExtensions.cs" />
     <Compile Include="Rendering\Images\ConsolePixel.cs" />
     <Compile Include="Rendering\Images\ConsolePixelRepository.cs" />
     <Compile Include="Rendering\Images\GrayscalePixelSource.cs" />
@@ -69,7 +71,6 @@
     <Compile Include="Rendering\Images\Image.cs" />
     <Compile Include="Rendering\Images\ImageBuffer.cs" />
     <Compile Include="Rendering\Images\ImageBufferBuilder.cs" />
-    <Compile Include="Rendering\Images\ImagePanel.cs" />
     <Compile Include="Rendering\Images\ImagePropertyConstants.cs" />
     <Compile Include="Rendering\Images\InvertBlockPixelConverter.cs" />
     <Compile Include="Rendering\Images\IPixelConverter.cs" />
@@ -79,7 +80,6 @@
     <Compile Include="Rendering\Images\SimplePixelConverter.cs" />
     <Compile Include="Rendering\IRenderable.cs" />
     <Compile Include="Rendering\NoDecoration.cs" />
-    <Compile Include="Rendering\RenderableState.cs" />
     <Compile Include="Rendering\SelectionMarker.cs" />
     <Compile Include="Rendering\Shapes\Circle.cs" />
     <Compile Include="Rendering\Shapes\Line.cs" />
@@ -87,13 +87,15 @@
     <Compile Include="Rendering\Strings\StringExtensions.cs" />
     <Compile Include="Rendering\Strings\Text.cs" />
     <Compile Include="Screen\ConsoleScreen.cs" />
-    <Compile Include="Screen\IScreenBuffer.cs" />
-    <Compile Include="Screen\ScreenBuffer.cs" />
-    <Compile Include="Screen\ScreenBufferExtensions.cs" />
-    <Compile Include="Screen\ScreenBufferFactory.cs" />
+    <Compile Include="Screen\ILayer.cs" />
+    <Compile Include="Screen\IPixelBuffer.cs" />
+    <Compile Include="Screen\PixelBuffer.cs" />
+    <Compile Include="Screen\PixelBufferExtensions.cs" />
+    <Compile Include="Screen\PixelBufferFactory.cs" />
     <Compile Include="Screen\ScreenPixel.cs" />
     <Compile Include="Screen\ScreenRenderer.cs" />
     <Compile Include="Screen\ScreenSpace.cs" />
+    <Compile Include="Unicode.cs" />
     <Compile Include="Utilities\IFactory.cs" />
     <Compile Include="Utilities\MathUtilities.cs" />
     <Compile Include="Utilities\StringUtilities.cs" />

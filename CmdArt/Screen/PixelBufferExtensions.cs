@@ -1,8 +1,8 @@
 namespace CmdArt.Screen
 {
-    public static class ScreenBufferExtensions
+    public static class PixelBufferExtensions
     {
-        public static void Clear(this IScreenBuffer buffer, Palette palette)
+        public static void Clear(this IPixelBuffer buffer, Palette palette)
         {
             buffer.Set(new Region(0, 0, buffer.Size), palette, ' ');
         }

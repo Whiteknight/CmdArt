@@ -1,4 +1,5 @@
-﻿using System.Drawing;
+﻿using CmdArt.Colors;
+using System.Drawing;
 
 namespace CmdArt.Rendering.Images
 {
