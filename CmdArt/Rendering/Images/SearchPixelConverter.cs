@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Drawing;
 
-namespace RichCmd.Rendering.Images
+namespace CmdArt.Rendering.Images
 {
     public class SearchPixelConverter : IPixelConverter
     {

@@ -1,4 +1,4 @@
-﻿namespace RichCmd
+﻿namespace CmdArt
 {
     public static class AsciiCodePage437
     {

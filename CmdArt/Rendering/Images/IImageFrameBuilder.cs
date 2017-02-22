@@ -1,6 +1,6 @@
 using System;
 
-namespace RichCmd.Rendering.Images
+namespace CmdArt.Rendering.Images
 {
     public interface IImageFrameBuilder : IDisposable
     {

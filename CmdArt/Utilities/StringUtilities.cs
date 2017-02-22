@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace RichCmd.Utilities
+namespace CmdArt.Utilities
 {
     public static class StringUtilities
     {

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace RichCmd
+namespace CmdArt
 {
     public interface ISize : IEquatable<ISize>
     {

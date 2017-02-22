@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace RichCmd.Rendering.Images
+namespace CmdArt.Rendering.Images
 {
     public interface IImageBuffer
     {

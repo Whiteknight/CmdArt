@@ -1,4 +1,4 @@
-﻿namespace RichCmd.Rendering.Images
+﻿namespace CmdArt.Rendering.Images
 {
     public static class ImagePropertyConstants
     {

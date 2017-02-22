@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Drawing;
 
-namespace RichCmd.Rendering.Images
+namespace CmdArt.Rendering.Images
 {
     public class SimplePixelConverter : IPixelConverter
     {

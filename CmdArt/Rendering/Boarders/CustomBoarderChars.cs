@@ -1,4 +1,4 @@
-﻿namespace RichCmd.Rendering.Boarders
+﻿namespace CmdArt.Rendering.Boarders
 {
     public interface IBoarderChars
     {

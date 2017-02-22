@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
-using RichCmd.Colors;
+using CmdArt.Colors;
 
-namespace RichCmd.Rendering.Images
+namespace CmdArt.Rendering.Images
 {
     public class ConsolePixel
     {

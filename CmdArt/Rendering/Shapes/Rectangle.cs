@@ -1,6 +1,6 @@
-﻿using RichCmd.Screen;
+﻿using CmdArt.Screen;
 
-namespace RichCmd.Rendering.Shapes
+namespace CmdArt.Rendering.Shapes
 {
     public class Rectangle : IRenderable
     {

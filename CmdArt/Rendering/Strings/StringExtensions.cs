@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace RichCmd.Rendering.Strings
+namespace CmdArt.Rendering.Strings
 {
     public static class StringExtensions
     {

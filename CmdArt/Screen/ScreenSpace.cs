@@ -1,9 +1,9 @@
-﻿using RichCmd.Rendering;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using CmdArt.Rendering;
 
-namespace RichCmd.Screen
+namespace CmdArt.Screen
 {
     public interface ILayer
     {

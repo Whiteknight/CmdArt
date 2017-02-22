@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace RichCmd.Colors
+namespace CmdArt.Colors
 {
     public static class ConsoleColorExtensions
     {

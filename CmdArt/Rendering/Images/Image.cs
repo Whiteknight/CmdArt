@@ -1,6 +1,6 @@
-﻿using RichCmd.Screen;
+﻿using CmdArt.Screen;
 
-namespace RichCmd.Rendering.Images
+namespace CmdArt.Rendering.Images
 {
     public class Image : IRenderable
     {

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Text;
 
-namespace RichCmd
+namespace CmdArt
 {
     public struct Region : ISize, ILocation
     {

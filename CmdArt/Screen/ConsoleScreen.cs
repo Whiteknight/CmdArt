@@ -1,8 +1,7 @@
 ﻿using System;
-using System.Text;
-using RichCmd.Colors;
+using CmdArt.Colors;
 
-namespace RichCmd.Screen
+namespace CmdArt.Screen
 {
     public class ConsoleScreen
     {

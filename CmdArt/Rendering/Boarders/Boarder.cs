@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Diagnostics;
-using RichCmd.Screen;
+using CmdArt.Screen;
 
-namespace RichCmd.Rendering.Boarders
+namespace CmdArt.Rendering.Boarders
 {
     public class Boarder : IDecoration
     {

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace RichCmd.Rendering
+namespace CmdArt.Rendering
 {
     [Flags]
     public enum DecorationSide

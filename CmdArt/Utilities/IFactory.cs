@@ -1,4 +1,4 @@
-﻿namespace RichCmd.Utilities
+﻿namespace CmdArt.Utilities
 {
     public interface IFactory<out T>
     {

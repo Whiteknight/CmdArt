@@ -1,4 +1,4 @@
-namespace RichCmd.Screen
+namespace CmdArt.Screen
 {
     public static class ScreenBufferExtensions
     {

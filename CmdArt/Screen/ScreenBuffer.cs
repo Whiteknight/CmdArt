@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace RichCmd.Screen
+namespace CmdArt.Screen
 {
     public class ScreenBuffer : IScreenBuffer
     {

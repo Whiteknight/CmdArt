@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Globalization;
-using RichCmd.Colors;
+using CmdArt.Colors;
 
-namespace RichCmd
+namespace CmdArt
 {
     public struct Palette : IEquatable<Palette>
     {

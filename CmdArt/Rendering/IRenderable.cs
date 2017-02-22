@@ -1,6 +1,6 @@
-﻿using RichCmd.Screen;
+﻿using CmdArt.Screen;
 
-namespace RichCmd.Rendering
+namespace CmdArt.Rendering
 {
     public interface IRenderable
     {

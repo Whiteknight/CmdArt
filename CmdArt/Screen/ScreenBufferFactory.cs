@@ -1,6 +1,6 @@
-﻿using RichCmd.Utilities;
+﻿using CmdArt.Utilities;
 
-namespace RichCmd.Screen
+namespace CmdArt.Screen
 {
     public class ScreenBufferFactory : IFactory<IScreenBuffer, ISize>
     {

@@ -1,4 +1,4 @@
-﻿namespace RichCmd.Rendering.Images
+﻿namespace CmdArt.Rendering.Images
 {
     public interface IImageFrame
     {

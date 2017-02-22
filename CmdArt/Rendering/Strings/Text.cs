@@ -1,7 +1,7 @@
 ﻿using System.Linq;
-using RichCmd.Screen;
+using CmdArt.Screen;
 
-namespace RichCmd.Rendering.Strings
+namespace CmdArt.Rendering.Strings
 {
     public class Text : IRenderable
     {
