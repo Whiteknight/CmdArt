@@ -183,13 +183,6 @@ namespace CmdArt.Screen
             _buffer[left, top].IsUpdated = updated;
         }
 
-        public Palette GetColor(int left, int top)
-        {
-            if (IsOutsideBounds(left, top))
-                return DefaultPalette;
-            return new Palette(_buffer[left, top].Color);
-        }
-
         public byte GetColorByte(int left, int top)
         {
             if (IsOutsideBounds(left, top))

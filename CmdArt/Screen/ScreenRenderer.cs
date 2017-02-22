@@ -2,11 +2,11 @@
 {
     public class ScreenRenderer
     {
-        public void Render(IPixelBuffer buffer, ConsoleScreen screen)
+        public void Render(IPixelBuffer buffer, IConsoleWrapper wrapper)
         {
             bool continues = false;
             byte currentColor = buffer.DefaultPalette.ByteValue;
-            screen.SetColor(currentColor);
+            wrapper.SetColor(currentColor);
             for (int j = 0; j < buffer.Size.Height; j++)
             {
                 for (int i = 0; i < buffer.Size.Width; i++)
@@ -20,13 +20,13 @@
                     if (isUpdated && buffer.IsVisible(i, j))
                     {
                         if (!continues)
-                            screen.SetCursorPosition(i, j);
+                            wrapper.SetCursorPosition(i, j);
                         if (buffer.GetColorByte(i, j) != currentColor)
                         {
                             currentColor = buffer.GetColorByte(i, j);
-                            screen.SetColor(currentColor);
+                            wrapper.SetColor(currentColor);
                         }
-                        screen.Write(buffer.GetCharacter(i, j));
+                        wrapper.Write(buffer.GetCharacter(i, j));
                         continues = true;
                     }
                     else
@@ -36,11 +36,11 @@
             }
         }
 
-        public void Render(ScreenSpace space, ConsoleScreen screen)
+        public void Render(ScreenSpace space, IConsoleWrapper wrapper)
         {
             bool continues = false;
             byte currentColor = space.BaseLayer.Buffer.DefaultPalette.ByteValue;
-            screen.SetColor(currentColor);
+            wrapper.SetColor(currentColor);
             for (int j = 0; j < space.Size.Height; j++)
             {
                 for (int i = 0; i < space.Size.Width; i++)
@@ -61,15 +61,15 @@
                         {
                             buffer.SetUpdated(left, top, false);
                             if (!continues)
-                                screen.SetCursorPosition(i, j);
+                                wrapper.SetCursorPosition(i, j);
 
                             byte color = buffer.GetColorByte(left, top);
                             if (color != currentColor)
                             {
                                 currentColor = color;
-                                screen.SetColor(currentColor);
+                                wrapper.SetColor(currentColor);
                             }
-                            screen.Write(buffer.GetCharacter(left, top));
+                            wrapper.Write(buffer.GetCharacter(left, top));
                             continues = true;
                         }
                         else

@@ -1,9 +1,17 @@
-﻿using System;
-using CmdArt.Colors;
+﻿using CmdArt.Colors;
+using System;
 
 namespace CmdArt.Screen
 {
-    public class ConsoleScreen
+    public interface IConsoleWrapper
+    {
+        void SetForAsciiGraphics();
+        void SetColor(byte color);
+        void SetCursorPosition(int i, int j);
+        void Write(char c);
+    }
+
+    public class ConsoleWrapper : IConsoleWrapper
     {
         public void SetForAsciiGraphics()
         {

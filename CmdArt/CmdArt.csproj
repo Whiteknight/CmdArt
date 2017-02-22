@@ -86,7 +86,7 @@
     <Compile Include="Rendering\Shapes\Rectangle.cs" />
     <Compile Include="Rendering\Strings\StringExtensions.cs" />
     <Compile Include="Rendering\Strings\Text.cs" />
-    <Compile Include="Screen\ConsoleScreen.cs" />
+    <Compile Include="Screen\ConsoleWrapper.cs" />
     <Compile Include="Screen\ILayer.cs" />
     <Compile Include="Screen\IPixelBuffer.cs" />
     <Compile Include="Screen\PixelBuffer.cs" />
@@ -95,6 +95,8 @@
     <Compile Include="Screen\ScreenPixel.cs" />
     <Compile Include="Screen\ScreenRenderer.cs" />
     <Compile Include="Screen\ScreenSpace.cs" />
+    <Compile Include="Screen\TerminalScreen.cs" />
+    <Compile Include="Screen\TerminalScreenWindow.cs" />
     <Compile Include="Unicode.cs" />
     <Compile Include="Utilities\IFactory.cs" />
     <Compile Include="Utilities\MathUtilities.cs" />

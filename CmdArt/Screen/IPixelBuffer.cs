@@ -32,7 +32,6 @@ namespace CmdArt.Screen
         bool IsUpdated(int left, int top);
         void SetUpdated(int left, int top, bool updated);
 
-        Palette GetColor(int left, int top);
         byte GetColorByte(int left, int top);
 
         char GetCharacter(int left, int top);

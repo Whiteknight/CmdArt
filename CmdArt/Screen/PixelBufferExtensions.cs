@@ -6,5 +6,11 @@ namespace CmdArt.Screen
         {
             buffer.Set(new Region(0, 0, buffer.Size), palette, ' ');
         }
+
+        public static Palette GetColorPalette(this IPixelBuffer buffer, int left, int top)
+        {
+            byte b = buffer.GetColorByte(left, top);
+            return new Palette(b);
+        }
     }
 }

@@ -2,12 +2,21 @@
 
 namespace CmdArt.Screen
 {
-    public class PixelBufferFactory : IFactory<IPixelBuffer, ISize>
+    public interface IPixelBufferFactory : IFactory<IPixelBuffer, ISize>
     {
-        // TODO: Method to create a PixelBuffer for the current console screen size
+        IPixelBuffer CreateForTerminalScreen();
+    }
+
+    public class PixelBufferFactory : IPixelBufferFactory
+    {
         public IPixelBuffer Create(ISize arg)
         {
             return new PixelBuffer(arg);
+        }
+
+        public IPixelBuffer CreateForTerminalScreen()
+        {
+            return new PixelBuffer(Region.Window);
         }
     }
 }

@@ -50,6 +50,9 @@ namespace CmdArt
 
         public static Region WindowMaxVertical => new Region(0, 0, Console.WindowWidth, Console.LargestWindowHeight);
 
+        public ISize RegionSize => new Size(Width, Height);
+        public ILocation RegionLocation => new Location(Left, Top);
+
         public Region RelativeToAbsolute(Region relative)
         {
             return new Region(Left + relative.Left, Top + relative.Top, Math.Min(Width - relative.Left, relative.Width), Math.Min(Height - relative.Top, relative.Height));
@@ -131,6 +134,21 @@ namespace CmdArt
                 other.Top > Top + Height)
                 return false;
             return true;
+        }
+
+        public bool IsCompletelyContainedBy(Region other)
+        {
+            return other.CompletelyContains(this);
+        }
+
+        public bool CompletelyContains(Region other)
+        {
+            if (Left <= other.Left &&
+                Top <= other.Top &&
+                Left + Width <= other.Left + other.Width &&
+                Top + Height <= other.Top + other.Height)
+                return true;
+            return false;
         }
     }
 }
