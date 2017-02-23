@@ -1,12 +1,12 @@
 ﻿using CmdArt.Colors;
+using CmdArt.Screen;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
 
-namespace CmdArt.Rendering.Images
+namespace CmdArt.Images
 {
-    // TODO: Try to code-share with ScreenPixel
-    public class ConsolePixel
+    public class ImageBrush
     {
         // percentage of the background color which shows with each glyph
         private static readonly Dictionary<char, byte> _percents = new Dictionary<char, byte> {
@@ -18,7 +18,7 @@ namespace CmdArt.Rendering.Images
 
         private readonly byte _percent;
 
-        public ConsolePixel(Palette palette, char printableCharacter)
+        public ImageBrush(Palette palette, char printableCharacter)
         {
             Palette = palette;
             PrintableCharacter = printableCharacter;
@@ -36,9 +36,9 @@ namespace CmdArt.Rendering.Images
         public ConsoleColor ForegroundColor => Palette.Foreground;
         public char PrintableCharacter { get; }
 
-        public ConsolePixel Invert()
+        public ImageBrush Invert()
         {
-            return new ConsolePixel(Palette.Invert(), PrintableCharacter);
+            return new ImageBrush(Palette.Invert(), PrintableCharacter);
         }
 
         public Color Color { get; }
@@ -46,5 +46,15 @@ namespace CmdArt.Rendering.Images
         public int AsInt => Color.GetRgbInt();
 
         public bool IsGrayscale => BackgroundColor.IsGrayscale() && (_percent == 0 || ForegroundColor.IsGrayscale());
+
+        public ScreenPixel ToScreenPixel()
+        {
+            return new ScreenPixel()
+            {
+                Color = Palette.ByteValue,
+                Character = PrintableCharacter,
+                IsUpdated = true
+            };
+        }
     }
 }

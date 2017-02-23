@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Drawing;
 
-namespace CmdArt.Rendering.Images
+namespace CmdArt.Images.Converters
 {
-    public class SimplePixelConverter : IPixelConverter
+    public class SimpleBrushConverter : IBrushConverter
     {
-        public ConsolePixel CreatePixel(Color c)
+        public ImageBrush CreateBrush(Color c)
         {
             int rBright = c.R / 43;
             int gBright = c.G / 43;
@@ -24,7 +24,7 @@ namespace CmdArt.Rendering.Images
             ConsoleColor fgColor = (ConsoleColor)(rFgComp | gFgComp | bFgComp);
             char ch = ' ';
 
-            return new ConsolePixel(new Palette(bgColor, fgColor), ch);
+            return new ImageBrush(new Palette(bgColor, fgColor), ch);
         }
     }
 }

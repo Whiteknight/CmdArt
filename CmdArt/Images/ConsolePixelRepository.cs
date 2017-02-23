@@ -1,21 +1,22 @@
-﻿using CmdArt.Colors;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using CmdArt.Colors;
+using CmdArt.Images.Sources;
 
-namespace CmdArt.Rendering.Images
+namespace CmdArt.Images
 {
     public class ConsolePixelRepository
     {
-        private readonly IReadOnlyList<ConsolePixel> _grayscalePixels;
-        private readonly Dictionary<int, ConsolePixel> _pixelCache;
+        private readonly IReadOnlyList<ImageBrush> _grayscalePixels;
+        private readonly Dictionary<int, ImageBrush> _pixelCache;
 
-        public ConsolePixelRepository(IEnumerable<IPixelSource> sources)
+        public ConsolePixelRepository(IEnumerable<IBrushSource> sources)
         {
-            Dictionary<int, ConsolePixel> pixels = new Dictionary<int, ConsolePixel>();
-            Dictionary<int, ConsolePixel> gsPixels = new Dictionary<int, ConsolePixel>();
-            foreach (ConsolePixel p in sources.SelectMany(s => s.GetPixels()))
+            Dictionary<int, ImageBrush> pixels = new Dictionary<int, ImageBrush>();
+            Dictionary<int, ImageBrush> gsPixels = new Dictionary<int, ImageBrush>();
+            foreach (ImageBrush p in sources.SelectMany(s => s.GetPixels()))
             {
                 if (!pixels.ContainsKey(p.AsInt))
                     pixels.Add(p.AsInt, p);
@@ -25,10 +26,10 @@ namespace CmdArt.Rendering.Images
 
             AllPixels = pixels.Values.ToList();
             _grayscalePixels = gsPixels.Values.ToList();
-            _pixelCache = new Dictionary<int, ConsolePixel>();
+            _pixelCache = new Dictionary<int, ImageBrush>();
         }
 
-        public ConsolePixel GetClosestPixel(Color c)
+        public ImageBrush GetClosestPixel(Color c)
         {
             // TODO: make rounding configurable?
             // TODO: method to clear cache?
@@ -38,7 +39,7 @@ namespace CmdArt.Rendering.Images
             if (_pixelCache.ContainsKey(key))
                 return _pixelCache[key];
 
-            IReadOnlyList<ConsolePixel> pixels = AllPixels;
+            IReadOnlyList<ImageBrush> pixels = AllPixels;
             if (c.IsGrayscale())
                 pixels = _grayscalePixels;
 
@@ -50,23 +51,23 @@ namespace CmdArt.Rendering.Images
                 })
                 .OrderBy(x => x.Distance)
                 .ToList();
-            ConsolePixel pixel = w[0].Pixel;
+            ImageBrush brush = w[0].Pixel;
 
-            _pixelCache.Add(key, pixel);
-            return pixel;
+            _pixelCache.Add(key, brush);
+            return brush;
         }
 
-        public ConsolePixel GetFurthestPixel(Color c)
+        public ImageBrush GetFurthestPixel(Color c)
         {
             return GetClosestPixel(c.Invert());
         }
 
-        public IEnumerable<ConsolePixel> RelatedColors(ConsoleColor cc)
+        public IEnumerable<ImageBrush> RelatedColors(ConsoleColor cc)
         {
             ConsoleColor c1 = cc.MakeBright();
             return AllPixels.Where(p => p.BackgroundColor.MakeBright() == c1 || p.ForegroundColor.MakeBright() == c1);
         }
 
-        public IReadOnlyList<ConsolePixel> AllPixels { get; }
+        public IReadOnlyList<ImageBrush> AllPixels { get; }
     }
 }

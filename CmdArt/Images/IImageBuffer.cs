@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace CmdArt.Rendering.Images
+namespace CmdArt.Images
 {
     public interface IImageBuffer
     {

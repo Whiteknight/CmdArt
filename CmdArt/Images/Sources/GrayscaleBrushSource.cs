@@ -1,22 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace CmdArt.Rendering.Images
+namespace CmdArt.Images.Sources
 {
-    public class GrayscalePixelSource : IPixelSource
+    public class GrayscaleBrushSource : IBrushSource
     {
         #region Implementation of IPixelSource
 
-        public IEnumerable<ConsolePixel> GetPixels()
+        public IEnumerable<ImageBrush> GetPixels()
         {
             for (int i = 0; i < 13; i++)
             {
-                ConsolePixel p = GetGreyscalePixel(i);
+                ImageBrush p = GetGreyscalePixel(i);
                 yield return p;
             }
         }
 
-        private static ConsolePixel GetGreyscalePixel(int i)
+        private static ImageBrush GetGreyscalePixel(int i)
         {
             if (i > 12)
                 i = 12;
@@ -29,7 +29,7 @@ namespace CmdArt.Rendering.Images
             ConsoleColor bg = greyscales[gidx];
             ConsoleColor fg = greyscales[gidx + 1];
             char c = blocks[i];
-            return new ConsolePixel(new Palette(bg, fg), c);
+            return new ImageBrush(new Palette(bg, fg), c);
         }
 
         #endregion

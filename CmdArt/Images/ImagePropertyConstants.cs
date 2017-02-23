@@ -1,4 +1,4 @@
-﻿namespace CmdArt.Rendering.Images
+﻿namespace CmdArt.Images
 {
     public static class ImagePropertyConstants
     {

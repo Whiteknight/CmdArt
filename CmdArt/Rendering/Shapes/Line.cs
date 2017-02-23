@@ -16,7 +16,7 @@ namespace CmdArt.Rendering.Shapes
             _symbol = symbol;
         }
 
-        public void Render(IPixelBuffer buffer)
+        public void RenderTo(IPixelBuffer buffer)
         {
             var loc1 = _loc1;
             var loc2 = _loc2;

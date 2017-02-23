@@ -136,7 +136,7 @@ namespace CmdArt.Screen
             public void Render()
             {
                 foreach (var renderable in Renderables)
-                    renderable.Render(Buffer);
+                    renderable.RenderTo(Buffer);
             }
         }
 
@@ -174,7 +174,7 @@ namespace CmdArt.Screen
             public void Render()
             {
                 foreach (var renderable in Renderables)
-                    renderable.Render(Buffer);
+                    renderable.RenderTo(Buffer);
             }
         }
     }

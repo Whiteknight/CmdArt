@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace CmdArt.Rendering.Images
+namespace CmdArt.Images
 {
     // TODO: create a subclass that represents a projection of a cropped region in an ImageBuffer.
     // TODO: Define IImageBuffer in terms of a more generic type for holding any set of chars or

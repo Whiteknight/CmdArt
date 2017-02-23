@@ -1,18 +1,20 @@
-﻿using System;
+﻿using CmdArt.Images.Converters;
+using CmdArt.Images.Samplers;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.Linq;
 
-namespace CmdArt.Rendering.Images
+namespace CmdArt.Images
 {
     public class ImageBufferBuilder
     {
         private readonly IImageSampler _sampler;
-        private readonly IPixelConverter _converter;
+        private readonly IBrushConverter _converter;
         private readonly Color _transparencyColor;
 
-        public ImageBufferBuilder(IImageSampler sampler, IPixelConverter converter, Color transparencyColor)
+        public ImageBufferBuilder(IImageSampler sampler, IBrushConverter converter, Color transparencyColor)
         {
             _sampler = sampler;
             _converter = converter;
@@ -33,11 +35,11 @@ namespace CmdArt.Rendering.Images
             private Bitmap _bmp;
             private readonly Region _region;
             private IImageSampler _sampler;
-            private IPixelConverter _converter;
+            private IBrushConverter _converter;
             private readonly Color _transparencyColor;
             private FrameDimension _frameDimension;
 
-            public ImageFrameBuilder(Bitmap bmp, Region region, IImageSampler sampler, IPixelConverter converter, Color transparencyColor)
+            public ImageFrameBuilder(Bitmap bmp, Region region, IImageSampler sampler, IBrushConverter converter, Color transparencyColor)
             {
                 _bmp = bmp;
                 _region = region;
@@ -78,7 +80,7 @@ namespace CmdArt.Rendering.Images
 
             private IImageFrame BuildBuffer(Region size, Bitmap bmp, FrameDimension frameDimension, int idx)
             {
-                ConsolePixel[,] buffer = new ConsolePixel[size.Height, size.Width];
+                ImageBrush[,] buffer = new ImageBrush[size.Height, size.Width];
                 bmp.SelectActiveFrame(frameDimension, idx);
 
                 for (int i = 0; i < size.Height; i++)
@@ -86,8 +88,8 @@ namespace CmdArt.Rendering.Images
                     for (int j = 0; j < size.Width; j++)
                     {
                         Color c = _sampler.GetSampleColor(size, bmp, j, i, _transparencyColor);
-                        ConsolePixel pixel = _converter.CreatePixel(c);
-                        buffer[i, j] = pixel;
+                        ImageBrush brush = _converter.CreateBrush(c);
+                        buffer[i, j] = brush;
                     }
                 }
 
@@ -127,30 +129,30 @@ namespace CmdArt.Rendering.Images
 
         private class ImageFrame : IImageFrame
         {
-            private readonly ConsolePixel[,] _buffer;
+            private readonly ImageBrush[,] _buffer;
             private readonly IReadOnlyDictionary<string, object> _properties;
             public Region TotalRegion { get; private set; }
 
-            public ImageFrame(Region size, ConsolePixel[,] buffer, IReadOnlyDictionary<string, object> properties)
+            public ImageFrame(Region size, ImageBrush[,] buffer, IReadOnlyDictionary<string, object> properties)
             {
                 _buffer = buffer;
                 _properties = properties;
                 TotalRegion = size;
             }
 
-            public ConsolePixel[,] GetRegionContents(Region region)
+            public ImageBrush[,] GetRegionContents(Region region)
             {
-                ConsolePixel[,] pixels = new ConsolePixel[region.Height, region.Width];
+                ImageBrush[,] brushes = new ImageBrush[region.Height, region.Width];
 
                 for (int i = 0; i < region.Height && (i + region.Top) < TotalRegion.Height; i++)
                 {
                     for (int j = 0; j < region.Width && (j + region.Left) < TotalRegion.Width; j++)
                     {
-                        pixels[i, j] = _buffer[i + region.Top, j + region.Left];
+                        brushes[i, j] = _buffer[i + region.Top, j + region.Left];
                     }
                 }
 
-                return pixels;
+                return brushes;
             }
 
             //public event EventHandler<ContentChangedEventArgs> ContentChanged;

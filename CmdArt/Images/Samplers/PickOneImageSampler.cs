@@ -1,7 +1,7 @@
-﻿using CmdArt.Colors;
-using System.Drawing;
+﻿using System.Drawing;
+using CmdArt.Colors;
 
-namespace CmdArt.Rendering.Images
+namespace CmdArt.Images.Samplers
 {
     public class PickOneImageSampler : IImageSampler
     {

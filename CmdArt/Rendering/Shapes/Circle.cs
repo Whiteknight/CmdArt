@@ -17,7 +17,7 @@ namespace CmdArt.Rendering.Shapes
             _symbol = symbol;
         }
 
-        public void Render(IPixelBuffer buffer)
+        public void RenderTo(IPixelBuffer buffer)
         {
             int x = _radius;
             int y = 0;

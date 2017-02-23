@@ -1,12 +1,12 @@
-﻿using CmdArt.Colors;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using CmdArt.Colors;
 
-namespace CmdArt.Rendering.Images
+namespace CmdArt.Images.Sources
 {
-    public class ColorsPixelSource : IPixelSource
+    public class ColorsBrushSource : IBrushSource
     {
-        public IEnumerable<ConsolePixel> GetPixels()
+        public IEnumerable<ImageBrush> GetPixels()
         {
             ConsoleColor[] colors = {
                 ConsoleColor.Magenta,
@@ -22,14 +22,14 @@ namespace CmdArt.Rendering.Images
                 // Get the pure colors
                 for (int j = 1; j < 12; j++)
                 {
-                    ConsolePixel p = GetPureColorPixel(colors[i], j);
+                    ImageBrush p = GetPureColorPixel(colors[i], j);
                     yield return p;
                 }
 
                 // Get direct pure-color blends
                 for (int j = 0; j < 4; j++)
                 {
-                    ConsolePixel p = GetBlendColorPixel(colors[i], colors[(i + 1) % colors.Length], j);
+                    ImageBrush p = GetBlendColorPixel(colors[i], colors[(i + 1) % colors.Length], j);
                     yield return p;
 
                     p = GetBlendColorPixel(colors[i].MakeDark(), colors[(i + 1) % colors.Length].MakeDark(), j);
@@ -39,7 +39,7 @@ namespace CmdArt.Rendering.Images
                 // Get diagonal bright-dark color blends
                 for (int j = 0; j < 4; j++)
                 {
-                    ConsolePixel p = GetBlendColorPixel(colors[i], colors[(i + 1) % colors.Length].MakeDark(), j);
+                    ImageBrush p = GetBlendColorPixel(colors[i], colors[(i + 1) % colors.Length].MakeDark(), j);
                     yield return p;
 
                     p = GetBlendColorPixel(colors[i], colors[(i + colors.Length - 1) % colors.Length].MakeDark(), j);
@@ -49,7 +49,7 @@ namespace CmdArt.Rendering.Images
                 // Get Gray-Blends
                 for (int j = 0; j < 4; j++)
                 {
-                    ConsolePixel p = GetBlendColorPixel(colors[i], ConsoleColor.Gray, j);
+                    ImageBrush p = GetBlendColorPixel(colors[i], ConsoleColor.Gray, j);
                     yield return p;
 
                     p = GetBlendColorPixel(colors[i].MakeDark(), ConsoleColor.DarkGray, j);
@@ -60,7 +60,7 @@ namespace CmdArt.Rendering.Images
             // Add in some special non-adjacent blends where appropriate
             for (int j = 0; j < 4; j++)
             {
-                ConsolePixel p = GetBlendColorPixel(ConsoleColor.Green, ConsoleColor.Blue, j);
+                ImageBrush p = GetBlendColorPixel(ConsoleColor.Green, ConsoleColor.Blue, j);
                 yield return p;
 
                 p = GetBlendColorPixel(ConsoleColor.DarkGreen, ConsoleColor.DarkBlue, j);
@@ -68,13 +68,13 @@ namespace CmdArt.Rendering.Images
             }
 
             // Add some "brown" shades
-            ConsolePixel brown = GetBlendColorPixel(ConsoleColor.Red, ConsoleColor.Green, 2);
+            ImageBrush brown = GetBlendColorPixel(ConsoleColor.Red, ConsoleColor.Green, 2);
             yield return brown;
             brown = GetBlendColorPixel(ConsoleColor.DarkRed, ConsoleColor.DarkGreen, 2);
             yield return brown;
         }
 
-        static ConsolePixel GetPureColorPixel(ConsoleColor baseColor, int i)
+        static ImageBrush GetPureColorPixel(ConsoleColor baseColor, int i)
         {
             if (i > 13)
                 i = 13;
@@ -88,10 +88,10 @@ namespace CmdArt.Rendering.Images
             ConsoleColor bg = scales[gidx];
             ConsoleColor fg = scales[gidx + 1];
             char c = blocks[i];
-            return new ConsolePixel(new Palette(bg, fg), c);
+            return new ImageBrush(new Palette(bg, fg), c);
         }
 
-        private static ConsolePixel GetBlendColorPixel(ConsoleColor c1, ConsoleColor c2, int i)
+        private static ImageBrush GetBlendColorPixel(ConsoleColor c1, ConsoleColor c2, int i)
         {
             if (i > 4)
                 i = 4;
@@ -100,8 +100,8 @@ namespace CmdArt.Rendering.Images
             // TODO: Use the named constants from the Unicode or AsciiCodePage437 classes
             const string blocks = " \x2591\x2592\x2593";
             if (i == 4)
-                return new ConsolePixel(new Palette(c2, c1), ' ');
-            return new ConsolePixel(new Palette(c1, c2), blocks[i]);
+                return new ImageBrush(new Palette(c2, c1), ' ');
+            return new ImageBrush(new Palette(c1, c2), blocks[i]);
         }
     }
 }
