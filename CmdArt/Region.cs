@@ -145,8 +145,8 @@ namespace CmdArt
         {
             if (Left <= other.Left &&
                 Top <= other.Top &&
-                Left + Width <= other.Left + other.Width &&
-                Top + Height <= other.Top + other.Height)
+                Left + Width >= other.Left + other.Width &&
+                Top + Height >= other.Top + other.Height)
                 return true;
             return false;
         }

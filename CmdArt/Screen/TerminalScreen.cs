@@ -21,8 +21,13 @@ namespace CmdArt.Screen
         public IPixelBufferFactory BufferFactory { get; }
         public IPixelBuffer Buffer { get; }
 
-        public void Render()
+        public void Render(bool includeWindows = false)
         {
+            if (includeWindows)
+            {
+                foreach (var window in Windows)
+                    window.Render();
+            }
             Renderer.Render(Buffer, ConsoleWrapper);
         }
 

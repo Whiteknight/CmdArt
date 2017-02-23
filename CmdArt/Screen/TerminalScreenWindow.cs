@@ -19,6 +19,7 @@
         public ILocation ScreenLocation { get; }
         public ISize Size { get; }
         public Region ScreenRegion => new Region(ScreenLocation, Size);
+        public Region SourceRegion => new Region(SourceLocation, Size);
 
         public void SetSourceBuffer(IPixelBuffer sourceBuffer, ILocation sourceLocation = null)
         {
