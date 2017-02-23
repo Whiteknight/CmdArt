@@ -21,7 +21,7 @@ namespace CmdArt.Images
             _transparencyColor = transparencyColor;
         }
 
-        public ImageBuffer Build(Bitmap bmp, Region targetSize)
+        public ImageBuffer Build(Bitmap bmp, ISize targetSize)
         {
             if (targetSize.Height <= 0 || targetSize.Width <= 0)
                 throw new Exception("Width and height must be strictly positive");
@@ -33,16 +33,16 @@ namespace CmdArt.Images
         private class ImageFrameBuilder : IImageFrameBuilder
         {
             private Bitmap _bmp;
-            private readonly Region _region;
+            private readonly ISize _targetSize;
             private IImageSampler _sampler;
             private IBrushConverter _converter;
             private readonly Color _transparencyColor;
             private FrameDimension _frameDimension;
 
-            public ImageFrameBuilder(Bitmap bmp, Region region, IImageSampler sampler, IBrushConverter converter, Color transparencyColor)
+            public ImageFrameBuilder(Bitmap bmp, ISize targetSize, IImageSampler sampler, IBrushConverter converter, Color transparencyColor)
             {
                 _bmp = bmp;
-                _region = region;
+                _targetSize = targetSize;
                 _sampler = sampler;
                 _converter = converter;
                 _transparencyColor = transparencyColor;
@@ -73,12 +73,12 @@ namespace CmdArt.Images
 
             public IImageFrame Build(int bufferIdx)
             {
-                return BuildBuffer(_region, _bmp, _frameDimension, bufferIdx);
+                return BuildBuffer(_targetSize, _bmp, _frameDimension, bufferIdx);
             }
 
             #endregion
 
-            private IImageFrame BuildBuffer(Region size, Bitmap bmp, FrameDimension frameDimension, int idx)
+            private IImageFrame BuildBuffer(ISize size, Bitmap bmp, FrameDimension frameDimension, int idx)
             {
                 ImageBrush[,] buffer = new ImageBrush[size.Height, size.Width];
                 bmp.SelectActiveFrame(frameDimension, idx);
@@ -131,22 +131,22 @@ namespace CmdArt.Images
         {
             private readonly ImageBrush[,] _buffer;
             private readonly IReadOnlyDictionary<string, object> _properties;
-            public Region TotalRegion { get; private set; }
+            public ISize TotalSize { get; }
 
-            public ImageFrame(Region size, ImageBrush[,] buffer, IReadOnlyDictionary<string, object> properties)
+            public ImageFrame(ISize size, ImageBrush[,] buffer, IReadOnlyDictionary<string, object> properties)
             {
                 _buffer = buffer;
                 _properties = properties;
-                TotalRegion = size;
+                TotalSize = size;
             }
 
             public ImageBrush[,] GetRegionContents(Region region)
             {
                 ImageBrush[,] brushes = new ImageBrush[region.Height, region.Width];
 
-                for (int i = 0; i < region.Height && (i + region.Top) < TotalRegion.Height; i++)
+                for (int i = 0; i < region.Height && (i + region.Top) < TotalSize.Height; i++)
                 {
-                    for (int j = 0; j < region.Width && (j + region.Left) < TotalRegion.Width; j++)
+                    for (int j = 0; j < region.Width && (j + region.Left) < TotalSize.Width; j++)
                     {
                         brushes[i, j] = _buffer[i + region.Top, j + region.Left];
                     }

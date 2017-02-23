@@ -14,14 +14,14 @@ namespace CmdArt.Images
     {
         private readonly ImageFrameSet _imageFrames;
 
-        public ImageBuffer(IImageFrameBuilder builder, Region region)
+        public ImageBuffer(IImageFrameBuilder builder, ISize size)
         {
             _imageFrames = new ImageFrameSet(builder);
-            Region = region;
+            Size = size;
             NumberOfBuffers = builder.NumberOfBuffers;
         }
 
-        public Region Region { get; }
+        public ISize Size { get; }
 
         public IEnumerable<IImageFrame> Buffers => _imageFrames;
 

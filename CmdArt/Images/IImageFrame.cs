@@ -2,7 +2,7 @@
 {
     public interface IImageFrame
     {
-        Region TotalRegion { get; }
+        ISize TotalSize { get; }
         ImageBrush[,] GetRegionContents(Region region);
         object GetProperty(string propertyName);
     }

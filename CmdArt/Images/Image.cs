@@ -18,9 +18,9 @@ namespace CmdArt.Images
         {
             IImageFrame imageFrame = _imageBuffer.GetBuffer(0);
             ImageBrush[,] brushes = imageFrame.GetRegionContents(new Region(_imageLocation.Left, _imageLocation.Top, buffer.Size.Width, buffer.Size.Height));
-            for (int j = 0; j < buffer.Size.Height && j < imageFrame.TotalRegion.Height; j++)
+            for (int j = 0; j < buffer.Size.Height && j < imageFrame.TotalSize.Height; j++)
             {
-                for (int i = 0; i < buffer.Size.Width && i < imageFrame.TotalRegion.Width; i++)
+                for (int i = 0; i < buffer.Size.Width && i < imageFrame.TotalSize.Width; i++)
                 {
                     buffer.Set(i, j, brushes[j, i].Palette, brushes[j, i].PrintableCharacter);
                 }

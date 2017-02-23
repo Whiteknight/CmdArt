@@ -28,6 +28,25 @@ namespace CmdArt
             return new Size(width, height);
         }
 
+        public static ISize FitButMaintainAspectRatio(ISize container, int startWidth, int startHeight)
+        {
+            if (startWidth == container.Width && startHeight == container.Height)
+                return container;
+
+            // Given a region of size (startWidth x startHeight) we need to maintain the aspect ratio
+            // but shrink down so that the new region 
+            double ri = ((double)startWidth / (double)startHeight);
+            double rs = ((double)container.Width / (double)container.Height);
+            if (rs > ri)
+            {
+                var newWidth = (int)(startWidth * ((double)container.Height / (double)startHeight));
+                return new Size(newWidth, container.Height);
+            }
+
+            var newHeight = (int)(startHeight * ((double)container.Width / (double)startWidth));
+            return new Size(container.Width, newHeight);
+        }
+
         public bool Equals(ISize other)
         {
             if (other == null)

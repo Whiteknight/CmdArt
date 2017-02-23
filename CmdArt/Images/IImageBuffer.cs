@@ -4,7 +4,7 @@ namespace CmdArt.Images
 {
     public interface IImageBuffer
     {
-        Region Region { get; }
+        ISize Size { get; }
         IEnumerable<IImageFrame> Buffers { get; }
         int NumberOfBuffers { get; }
         IImageFrame GetBuffer(int bufferIdx);
