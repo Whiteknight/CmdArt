@@ -6,9 +6,9 @@ namespace CmdArt.Screen
     public interface IConsoleWrapper
     {
         void SetForAsciiGraphics();
-        void SetColor(byte color);
-        void SetColor(Palette palette);
+        void SetColor(ConsoleColor foreground, ConsoleColor background);
         void SetCursorPosition(int i, int j);
+        void SetSize(int width, int height);
         void Write(char c);
 
         Region WindowRegion { get; }
@@ -26,16 +26,10 @@ namespace CmdArt.Screen
             Console.CursorVisible = false;
         }
 
-        public void SetColor(byte color)
+        public void SetColor(ConsoleColor foreground, ConsoleColor background)
         {
-            Console.ForegroundColor = ConsoleColorUtilities.GetForeground(color);
-            Console.BackgroundColor = ConsoleColorUtilities.GetBackground(color);
-        }
-
-        public void SetColor(Palette palette)
-        {
-            Console.ForegroundColor = palette.Foreground;
-            Console.BackgroundColor = palette.Background;
+            Console.ForegroundColor = foreground;
+            Console.BackgroundColor = background;
         }
 
         public Palette GetCurrentPalette()
@@ -48,6 +42,14 @@ namespace CmdArt.Screen
             Console.SetCursorPosition(i, j);
         }
 
+        public void SetSize(int width, int height)
+        {
+            if (width > 0)
+                Console.WindowWidth = width > Console.LargestWindowWidth ? Console.LargestWindowWidth : width;
+            if (height > 0)
+                Console.WindowHeight = height > Console.LargestWindowHeight ? Console.LargestWindowHeight : height;
+        }
+
         public void Write(char c)
         {
             Console.Write(c);
@@ -58,5 +60,30 @@ namespace CmdArt.Screen
         public Region WindowMaxRegion => new Region(0, 0, Console.LargestWindowWidth, Console.LargestWindowHeight);
 
         public Region WindowMaxVerticalRegion => new Region(0, 0, Console.WindowWidth, Console.LargestWindowHeight);
+    }
+
+    public static class ConsoleWrapperExtensions
+    {
+        public static void SetColor(this IConsoleWrapper console, byte color)
+        {
+            var f = ConsoleColorUtilities.GetForeground(color);
+            var b = ConsoleColorUtilities.GetBackground(color);
+            console.SetColor(f, b);
+        }
+
+        public static void SetColor(this IConsoleWrapper console, Palette palette)
+        {
+            console.SetColor(palette.Foreground, palette.Background);
+        }
+
+        public static void SetCursorPosition(this IConsoleWrapper console, ILocation location)
+        {
+            console.SetCursorPosition(location.Left, location.Top);
+        }
+
+        public static void SetSize(this IConsoleWrapper console, ISize size)
+        {
+            console.SetSize(size.Width, size.Height);
+        }
     }
 }

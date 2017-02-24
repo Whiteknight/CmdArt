@@ -2,7 +2,7 @@
 {
     public class ScreenRenderer
     {
-        public void Render(IPixelBuffer buffer, IConsoleWrapper wrapper)
+        public void Render(IPixelBuffer buffer, IConsoleWrapper wrapper, bool force = false)
         {
             bool continues = false;
             byte currentColor = buffer.DefaultPalette.ByteValue;
@@ -12,7 +12,7 @@
                 for (int i = 0; i < buffer.Size.Width; i++)
                 {
                     bool isUpdated = false;
-                    if (buffer.IsUpdated(i, j))
+                    if (force || buffer.IsUpdated(i, j))
                     {
                         isUpdated = true;
                         buffer.SetUpdated(i, j, false);

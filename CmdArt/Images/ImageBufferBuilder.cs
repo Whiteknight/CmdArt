@@ -14,19 +14,21 @@ namespace CmdArt.Images
         private readonly IBrushConverter _converter;
         private readonly Color _transparencyColor;
 
-        public ImageBufferBuilder(IImageSampler sampler, IBrushConverter converter, Color transparencyColor)
+        public ImageBufferBuilder(IImageSampler sampler = null, IBrushConverter converter = null, Color? transparencyColor = null)
         {
-            _sampler = sampler;
-            _converter = converter;
-            _transparencyColor = transparencyColor;
+            _sampler = sampler ?? new PickOneImageSampler();
+            _converter = converter ?? new SearchBrushConverter();
+            _transparencyColor = transparencyColor.GetValueOrDefault(Color.Transparent);
         }
 
-        public ImageBuffer Build(Bitmap bmp, ISize targetSize)
+        public ImageBuffer Build(Bitmap bitmap, ISize targetSize, bool maintainAspectRatio = true)
         {
             if (targetSize.Height <= 0 || targetSize.Width <= 0)
                 throw new Exception("Width and height must be strictly positive");
 
-            IImageFrameBuilder imageFrameBuilder = new ImageFrameBuilder(bmp, targetSize, _sampler, _converter, _transparencyColor);
+            var size = Size.FitButMaintainAspectRatio(targetSize, bitmap.Width, bitmap.Height);
+
+            IImageFrameBuilder imageFrameBuilder = new ImageFrameBuilder(bitmap, size, _sampler, _converter, _transparencyColor);
             return new ImageBuffer(imageFrameBuilder, targetSize);
         }
 

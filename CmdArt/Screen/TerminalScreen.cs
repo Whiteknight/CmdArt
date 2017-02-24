@@ -19,16 +19,16 @@ namespace CmdArt.Screen
         public ICollection<TerminalScreenWindow> Windows { get; }
         public ScreenRenderer Renderer { get; }
         public IPixelBufferFactory BufferFactory { get; }
-        public IPixelBuffer Buffer { get; }
+        public IPixelBuffer Buffer { get; private set; }
 
-        public void Render(bool includeWindows = false)
+        public void Render(bool includeWindows = false, bool force = false)
         {
             if (includeWindows)
             {
                 foreach (var window in Windows)
                     window.Render();
             }
-            Renderer.Render(Buffer, ConsoleWrapper);
+            Renderer.Render(Buffer, ConsoleWrapper, force);
         }
 
         public TerminalScreenWindow CreateNewWindow(Region region)
@@ -41,6 +41,17 @@ namespace CmdArt.Screen
             var window = new TerminalScreenWindow(this, region);
             Windows.Add(window);
             return window;
+        }
+
+        public void ResizeConsole(ISize size, bool preserveContents = false)
+        {
+            ConsoleWrapper.SetSize(size);
+            var buffer = BufferFactory.CreateForTerminalScreen();
+            if (preserveContents)
+            {
+                // TODO: Copy from old buffer to new buffer
+            }
+            Buffer = buffer;
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using CmdArt.Rendering;
 using CmdArt.Screen;
+using System.Drawing;
 
 namespace CmdArt.Images
 {
@@ -14,6 +15,8 @@ namespace CmdArt.Images
             _imageLocation = imageLocation;
         }
 
+        public ISize Size => _imageBuffer.Size;
+
         public void RenderTo(IPixelBuffer buffer)
         {
             IImageFrame imageFrame = _imageBuffer.GetBuffer(0);
@@ -25,6 +28,20 @@ namespace CmdArt.Images
                     buffer.Set(i, j, brushes[j, i].Palette, brushes[j, i].PrintableCharacter);
                 }
             }
+        }
+
+        public static Image BuildFromImageFile(string fileName, ISize bufferSize, bool maintainAspectRatio = true)
+        {
+            var bitmap = System.Drawing.Image.FromFile(fileName);
+            return BuildFromBitmap((Bitmap)bitmap, bufferSize, maintainAspectRatio);
+        }
+
+        public static Image BuildFromBitmap(Bitmap bitmap, ISize bufferSize, bool maintainAspectRatio = true)
+        {
+            // TODO: Use default singleton to avoid creating many instances
+            ImageBufferBuilder builder = new ImageBufferBuilder();
+            var imageBuffer = builder.Build(bitmap, bufferSize, maintainAspectRatio);
+            return new Image(imageBuffer, Location.Origin);
         }
     }
 }
