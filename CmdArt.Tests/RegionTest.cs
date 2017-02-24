@@ -1,8 +1,5 @@
-﻿using CmdArt.Colors;
-using CmdArt.Screen;
-using FluentAssertions;
+﻿using FluentAssertions;
 using NUnit.Framework;
-using System;
 
 namespace CmdArt.Tests
 {
@@ -33,7 +30,7 @@ namespace CmdArt.Tests
         {
             Region target = new Region(5, 6, 7, 9);
             target.ToString("LTWH").Should().Be("5679");
-            target.ToString("\\L\\T\\W\\H").Should().Be("LTWH");
+            target.ToString(@"\L\T\W\H").Should().Be("LTWH");
             target.ToString("TEST").Should().Be("6ES6");
         }
 
@@ -107,6 +104,56 @@ namespace CmdArt.Tests
             target.Overlaps(new Region(0, 10, 5, 5)).Should().BeTrue();
             target.Overlaps(new Region(10, 0, 5, 5)).Should().BeTrue();
             target.Overlaps(new Region(10, 10, 5, 5)).Should().BeTrue();
+        }
+
+        [Test]
+        public void Offset_Test()
+        {
+            var target = new Region(1, 2, 3, 4);
+            var result = target.Offset(new Location(4, 5));
+
+            result.Left.Should().Be(5);
+            result.Top.Should().Be(7);
+            result.Width.Should().Be(3);
+            result.Height.Should().Be(4);
+        }
+
+        [Test]
+        public void IsCompletelyContainedBy_Test()
+        {
+            new Region(10, 10, 10, 10).IsCompletelyContainedBy(new Region(10, 10, 10, 10)).Should().BeTrue();
+            new Region(10, 10, 10, 10).IsCompletelyContainedBy(new Region(0, 0, 30, 30)).Should().BeTrue();
+            new Region(10, 10, 10, 10).IsCompletelyContainedBy(new Region(5, 5, 10, 10)).Should().BeFalse();
+            new Region(10, 10, 10, 10).IsCompletelyContainedBy(new Region(10, 10, 5, 5)).Should().BeFalse();
+            new Region(10, 10, 10, 10).IsCompletelyContainedBy(new Region(5, 5, 5, 5)).Should().BeFalse();
+        }
+
+        [Test]
+        public void CompletelyContains_Test()
+        {
+            new Region(10, 10, 10, 10).CompletelyContains(new Region(10, 10, 10, 10)).Should().BeTrue();
+            new Region(10, 10, 10, 10).CompletelyContains(new Region(0, 0, 30, 30)).Should().BeFalse();
+            new Region(10, 10, 10, 10).CompletelyContains(new Region(5, 5, 10, 10)).Should().BeFalse();
+            new Region(10, 10, 10, 10).CompletelyContains(new Region(10, 10, 5, 5)).Should().BeTrue();
+            new Region(10, 10, 10, 10).CompletelyContains(new Region(5, 5, 5, 5)).Should().BeFalse();
+        }
+
+        [Test]
+        public void Equals_ISize_Test1()
+        {
+            var a = new Region(10, 10, 10, 10);
+            var b = new Size(10, 10);
+
+            a.Equals(b).Should().BeTrue();
+        }
+
+        [Test]
+        public void Equals_ISize_Test2()
+        {
+            var a = new Region(10, 10, 10, 10);
+            var b = new Size(11, 11);
+
+            a.Equals(b).Should().BeFalse();
         }
     }
 }

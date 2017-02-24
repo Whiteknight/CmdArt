@@ -73,6 +73,7 @@
     <Compile Include="RegionTest.cs" />
     <Compile Include="ConsoleColorUtilitiesTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SizeTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

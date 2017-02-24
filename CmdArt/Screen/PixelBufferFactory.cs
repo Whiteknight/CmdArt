@@ -9,6 +9,13 @@ namespace CmdArt.Screen
 
     public class PixelBufferFactory : IPixelBufferFactory
     {
+        private readonly IConsoleWrapper _console;
+
+        public PixelBufferFactory(IConsoleWrapper console)
+        {
+            _console = console;
+        }
+
         public IPixelBuffer Create(ISize arg)
         {
             return new PixelBuffer(arg);
@@ -16,7 +23,7 @@ namespace CmdArt.Screen
 
         public IPixelBuffer CreateForTerminalScreen()
         {
-            return new PixelBuffer(Region.Window);
+            return new PixelBuffer(_console.WindowRegion);
         }
     }
 }

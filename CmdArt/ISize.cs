@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace CmdArt
 {
@@ -20,13 +18,6 @@ namespace CmdArt
 
         public int Width { get; }
         public int Height { get; }
-
-        public static Size Maximum(IReadOnlyList<ISize> sizes)
-        {
-            int height = sizes.Max(s => s.Height);
-            int width = sizes.Max(s => s.Width);
-            return new Size(width, height);
-        }
 
         public static ISize FitButMaintainAspectRatio(ISize container, int startWidth, int startHeight)
         {

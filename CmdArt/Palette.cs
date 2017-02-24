@@ -49,8 +49,6 @@ namespace CmdArt
         public ConsoleColor Foreground { get; }
         public ConsoleColor Background { get; }
 
-        public static Palette Current => new Palette(Console.ForegroundColor, Console.BackgroundColor);
-
         public static Palette Default => new Palette(ConsoleColor.Gray, ConsoleColor.Black);
 
         public static Palette GetRandom()
@@ -66,26 +64,6 @@ namespace CmdArt
         public Palette Invert()
         {
             return new Palette(Foreground.Invert(), Background.Invert());
-        }
-
-        public void Set()
-        {
-            Console.ForegroundColor = Foreground;
-            Console.BackgroundColor = Background;
-        }
-
-        public void With(Action act)
-        {
-            Palette current = Current;
-            Set();
-            try
-            {
-                act();
-            }
-            finally
-            {
-                current.Set();
-            }
         }
 
         public bool Equals(Palette other)

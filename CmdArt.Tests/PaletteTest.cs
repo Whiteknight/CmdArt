@@ -1,6 +1,4 @@
-﻿using CmdArt.Colors;
-using CmdArt.Screen;
-using FluentAssertions;
+﻿using FluentAssertions;
 using NUnit.Framework;
 using System;
 

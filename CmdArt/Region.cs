@@ -44,12 +44,6 @@ namespace CmdArt
 
         public static Region None => new Region();
 
-        public static Region Window => new Region(0, 0, Console.WindowWidth, Console.WindowHeight - 1);
-
-        public static Region WindowMax => new Region(0, 0, Console.LargestWindowWidth, Console.LargestWindowHeight);
-
-        public static Region WindowMaxVertical => new Region(0, 0, Console.WindowWidth, Console.LargestWindowHeight);
-
         public ISize RegionSize => new Size(Width, Height);
         public ILocation RegionLocation => new Location(Left, Top);
 
@@ -89,6 +83,7 @@ namespace CmdArt
             return Height == other.Height && Width == other.Width;
         }
         // TODO: ==ISize and !=ISize
+        // TODO: IEquatable<Region>
 
         public override string ToString()
         {
