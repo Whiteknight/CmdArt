@@ -4,7 +4,7 @@ namespace CmdArt.Screen
 {
     public class PixelBuffer : IPixelBuffer
     {
-        private readonly ScreenPixel[,] _buffer;
+        public ScreenPixel[,] Raw { get; }
 
         public PixelBuffer(int width, int height)
             : this(new Size(width, height))
@@ -14,7 +14,7 @@ namespace CmdArt.Screen
         public PixelBuffer(ISize size)
         {
             Size = size;
-            _buffer = new ScreenPixel[size.Width, size.Height];
+            Raw = new ScreenPixel[size.Width, size.Height];
             DefaultPalette = Palette.Default;
         }
 
@@ -34,12 +34,12 @@ namespace CmdArt.Screen
                 return;
 
             // Silently ignore if the pixel is already the same, don't mark it updated.
-            if (_buffer[left, top].Color == color && _buffer[left, top].Character == c)
+            if (Raw[left, top].Color == color && Raw[left, top].Character == c)
                 return;
 
-            _buffer[left, top].Color = color;
-            _buffer[left, top].Character = c;
-            _buffer[left, top].IsUpdated = true;
+            Raw[left, top].Color = color;
+            Raw[left, top].Character = c;
+            Raw[left, top].IsUpdated = true;
         }
 
         public void Set(int left, int top, Palette palette, string s)
@@ -91,11 +91,11 @@ namespace CmdArt.Screen
                 return;
 
             // Silently ignore if the pixel is already the same, don't mark it updated.
-            if (_buffer[left, top].Color == color)
+            if (Raw[left, top].Color == color)
                 return;
 
-            _buffer[left, top].Color = color;
-            _buffer[left, top].IsUpdated = true;
+            Raw[left, top].Color = color;
+            Raw[left, top].IsUpdated = true;
         }
 
         public void SetColor(Region region, Palette palette)
@@ -117,11 +117,11 @@ namespace CmdArt.Screen
                 return;
 
             // Silently ignore if the pixel is already the same, don't mark it updated.
-            if (_buffer[left, top].Character == c)
+            if (Raw[left, top].Character == c)
                 return;
 
-            _buffer[left, top].Character = c;
-            _buffer[left, top].IsUpdated = true;
+            Raw[left, top].Character = c;
+            Raw[left, top].IsUpdated = true;
         }
 
         public void SetCharacter(Region region, char c)
@@ -141,7 +141,7 @@ namespace CmdArt.Screen
             {
                 for (int i = 0; i < Size.Width; i++)
                 {
-                    if (_buffer[i, j].IsVisible)
+                    if (Raw[i, j].IsVisible)
                         yield return new Location(i, j);
                 }
             }
@@ -166,35 +166,35 @@ namespace CmdArt.Screen
         {
             if (IsOutsideBounds(left, top))
                 return false;
-            return _buffer[left, top].IsVisible;
+            return Raw[left, top].IsVisible;
         }
 
         public bool IsUpdated(int left, int top)
         {
             if (IsOutsideBounds(left, top))
                 return false;
-            return _buffer[left, top].IsUpdated;
+            return Raw[left, top].IsUpdated;
         }
 
         public void SetUpdated(int left, int top, bool updated)
         {
             if (IsOutsideBounds(left, top))
                 return;
-            _buffer[left, top].IsUpdated = updated;
+            Raw[left, top].IsUpdated = updated;
         }
 
         public byte GetColorByte(int left, int top)
         {
             if (IsOutsideBounds(left, top))
                 return DefaultPalette.ByteValue;
-            return _buffer[left, top].Color;
+            return Raw[left, top].Color;
         }
 
         public char GetCharacter(int left, int top)
         {
             if (IsOutsideBounds(left, top))
                 return '\0';
-            return _buffer[left, top].Character;
+            return Raw[left, top].Character;
         }
 
         //public void ForeachVisible(Action<ScreenPixel> act)
