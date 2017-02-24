@@ -86,7 +86,9 @@
     <Compile Include="Rendering\Shapes\Rectangle.cs" />
     <Compile Include="Rendering\Strings\StringExtensions.cs" />
     <Compile Include="Rendering\Strings\Text.cs" />
+    <Compile Include="Screen\BufferConsoleWrapper.cs" />
     <Compile Include="Screen\ConsoleWrapper.cs" />
+    <Compile Include="Screen\ConsoleWrapperExtensions.cs" />
     <Compile Include="Screen\ILayer.cs" />
     <Compile Include="Screen\IPixelBuffer.cs" />
     <Compile Include="Screen\PixelBuffer.cs" />
