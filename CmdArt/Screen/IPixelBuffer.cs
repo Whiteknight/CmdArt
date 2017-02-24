@@ -32,8 +32,6 @@ namespace CmdArt.Screen
         bool IsUpdated(int left, int top);
         void SetUpdated(int left, int top, bool updated);
 
-        byte GetColorByte(int left, int top);
-
-        char GetCharacter(int left, int top);
+        ScreenPixel Get(int left, int top);
     }
 }

@@ -9,7 +9,7 @@ namespace CmdArt.Screen
 
         public static Palette GetColorPalette(this IPixelBuffer buffer, int left, int top)
         {
-            byte b = buffer.GetColorByte(left, top);
+            byte b = buffer.Get(left, top).Color;
             return new Palette(b);
         }
     }

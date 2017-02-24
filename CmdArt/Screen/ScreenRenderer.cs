@@ -21,12 +21,13 @@
                     {
                         if (!continues)
                             wrapper.SetCursorPosition(i, j);
-                        if (buffer.GetColorByte(i, j) != currentColor)
+                        var pixel = buffer.Get(i, j);
+                        if (pixel.Color != currentColor)
                         {
-                            currentColor = buffer.GetColorByte(i, j);
+                            currentColor = pixel.Color;
                             wrapper.SetColor(currentColor);
                         }
-                        wrapper.Write(buffer.GetCharacter(i, j));
+                        wrapper.Write(pixel.Character);
                         continues = true;
                     }
                     else
@@ -63,13 +64,14 @@
                             if (!continues)
                                 wrapper.SetCursorPosition(i, j);
 
-                            byte color = buffer.GetColorByte(left, top);
+                            var pixel = buffer.Get(i, j);
+                            byte color = pixel.Color;
                             if (color != currentColor)
                             {
                                 currentColor = color;
                                 wrapper.SetColor(currentColor);
                             }
-                            wrapper.Write(buffer.GetCharacter(left, top));
+                            wrapper.Write(pixel.Character);
                             continues = true;
                         }
                         else

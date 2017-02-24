@@ -92,6 +92,7 @@
     <Compile Include="Screen\PixelBuffer.cs" />
     <Compile Include="Screen\PixelBufferExtensions.cs" />
     <Compile Include="Screen\PixelBufferFactory.cs" />
+    <Compile Include="Screen\PixelBufferSerializer.cs" />
     <Compile Include="Screen\ScreenPixel.cs" />
     <Compile Include="Screen\ScreenRenderer.cs" />
     <Compile Include="Screen\ScreenSpace.cs" />

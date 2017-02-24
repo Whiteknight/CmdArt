@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using CmdArt.Images.Sources;
+using System.Collections.Generic;
 using System.Drawing;
-using CmdArt.Images.Sources;
 
 namespace CmdArt.Images.Converters
 {

@@ -67,9 +67,12 @@ namespace CmdArt.Colors
             return (byte)total;
         }
 
+        private const int _greyscaleDelta = 5;
         public static bool IsGrayscale(this Color c)
         {
-            if (c.R - c.G < 5 && c.R - c.B < 5)
+            if (Math.Abs(c.R - c.G) < _greyscaleDelta
+                && Math.Abs(c.R - c.B) < _greyscaleDelta
+                && Math.Abs(c.G - c.B) < _greyscaleDelta)
                 return true;
             return false;
         }

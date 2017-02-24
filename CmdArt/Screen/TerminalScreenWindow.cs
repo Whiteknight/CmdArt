@@ -47,9 +47,9 @@
 
                     if (!SourceBuffer.IsUpdated(i, j))
                         continue;
-                    var color = SourceBuffer.GetColorByte(srcLeft, srcTop);
-                    var c = SourceBuffer.GetCharacter(srcLeft, srcTop);
-                    _screen.Buffer.Set(trgLeft, trgTop, color, c);
+
+                    var pixel = SourceBuffer.Get(srcLeft, srcTop);
+                    _screen.Buffer.Set(trgLeft, trgTop, pixel.Color, pixel.Character);
                 }
             }
         }

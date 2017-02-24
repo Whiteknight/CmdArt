@@ -4,6 +4,7 @@ using CmdArt.Images.Samplers;
 using CmdArt.Screen;
 using System;
 using System.Drawing;
+using System.IO;
 using Image = System.Drawing.Image;
 
 namespace CmdArt.Test.ImageRender
@@ -12,9 +13,23 @@ namespace CmdArt.Test.ImageRender
     {
         static void Main(string[] args)
         {
-            var bitmap = Image.FromFile(@"MonaLisa.jpg");
+            foreach (var file in Directory.EnumerateFiles("Media", "*.jpg"))
+            {
+                RenderImage(file);
+                Console.ReadKey();
+            }
+
+            // TODO: Show example where pushing arrowkeys moves the location of the window in the screen (but keeps the source location fixed)
+            // TODO: Show example where pushing arrowkeys moves the source location, but keeps the window fixed in the screen
+            // TODO: Show example where pushing arrowkeys moves the window and the source location
+        }
+
+        private static void RenderImage(string fileName)
+        {
+            // TODO: This is too much work for basic setup. Create some helpers.
+            var bitmap = Image.FromFile(fileName);
             ImageBufferBuilder builder = new ImageBufferBuilder(new PickOneImageSampler(), new SearchBrushConverter(), Color.Transparent);
-            var size = Size.FitButMaintainAspectRatio(Region.WindowMax, bitmap.Width, bitmap.Height);
+            var size = Size.FitButMaintainAspectRatio(new Size(100, 55), bitmap.Width, bitmap.Height);
 
             // TODO: IConsoleWrapper method to set the console to a size
             Console.WindowWidth = size.Width;
@@ -29,20 +44,6 @@ namespace CmdArt.Test.ImageRender
             var screen = new TerminalScreen();
             image.RenderTo(screen.Buffer);
             screen.Render();
-            Console.ReadKey();
-
-            screen.Buffer.Clear(Palette.Default);
-            var window = screen.CreateNewWindow(new Region(3, 3, 24, 29));
-            var buffer = screen.BufferFactory.CreateForTerminalScreen();
-            image.RenderTo(buffer);
-            window.SetSourceBuffer(buffer, new Location(20, 8));
-            window.Render();
-            screen.Render();
-            Console.ReadKey();
-
-            // TODO: Show example where pushing arrowkeys moves the location of the window in the screen (but keeps the source location fixed)
-            // TODO: Show example where pushing arrowkeys moves the source location, but keeps the window fixed in the screen
-            // TODO: Show example where pushing arrowkeys moves the window and the source location
         }
     }
 }

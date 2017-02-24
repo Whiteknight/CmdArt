@@ -101,9 +101,8 @@ namespace CmdArt.Screen
                         if (!buffer.IsVisible(left, top))
                             continue;
 
-                        var color = buffer.GetColorByte(left, top);
-                        var character = buffer.GetCharacter(left, top);
-                        newBuffer.Set(left, top, color, character);
+                        var pixel = buffer.Get(left, top);
+                        newBuffer.Set(left, top, pixel.Color, pixel.Character);
                         break;
                     }
                 }

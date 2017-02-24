@@ -1,9 +1,9 @@
-﻿using System;
+﻿using CmdArt.Colors;
+using CmdArt.Images.Sources;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
-using CmdArt.Colors;
-using CmdArt.Images.Sources;
 
 namespace CmdArt.Images
 {
@@ -40,7 +40,7 @@ namespace CmdArt.Images
                 return _pixelCache[key];
 
             IReadOnlyList<ImageBrush> pixels = AllPixels;
-            if (c.IsGrayscale())
+            if (c.IsGrayscale() && _grayscalePixels.Any())
                 pixels = _grayscalePixels;
 
             var w = pixels

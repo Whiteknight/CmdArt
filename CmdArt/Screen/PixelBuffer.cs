@@ -183,18 +183,11 @@ namespace CmdArt.Screen
             Raw[left, top].IsUpdated = updated;
         }
 
-        public byte GetColorByte(int left, int top)
+        public ScreenPixel Get(int left, int top)
         {
             if (IsOutsideBounds(left, top))
-                return DefaultPalette.ByteValue;
-            return Raw[left, top].Color;
-        }
-
-        public char GetCharacter(int left, int top)
-        {
-            if (IsOutsideBounds(left, top))
-                return '\0';
-            return Raw[left, top].Character;
+                return ScreenPixel.Transparent;
+            return Raw[left, top];
         }
 
         //public void ForeachVisible(Action<ScreenPixel> act)
