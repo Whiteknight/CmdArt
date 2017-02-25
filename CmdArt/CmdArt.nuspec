@@ -1,0 +1,22 @@
+﻿<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>CmdArt</id>
+    <version>0.0.1</version>
+    <title>$title$</title>
+    <authors>Andrew F. Whitworth</authors>
+    <owners>$author$</owners>
+    <licenseUrl>https://github.com/Whiteknight/CmdArt/blob/master/LICENSE</licenseUrl>
+    <projectUrl>https://whiteknight.github.io/CmdArt/</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Primitive art for the primitive DOS console.</description>
+    <copyright>Copyright 2017</copyright>
+    <tags>DOS CMD Images Art</tags>
+  </metadata>
+  <files>
+    <file src="bin\Release\net45\CmdArt.dll" target="lib\net45\CmdArt.dll" />
+    <file src="bin\Release\net45\CmdArt.pdb" target="lib\net45\CmdArt.pdb" />
+    <file src="bin\Release\net46\CmdArt.dll" target="lib\net46\CmdArt.dll" />
+    <file src="bin\Release\net46\CmdArt.pdb" target="lib\net46\CmdArt.pdb" />
+  </files>
+</package>
