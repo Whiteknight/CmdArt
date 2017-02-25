@@ -8,14 +8,14 @@ namespace CmdArt.Screen
     {
         public TerminalScreen(IConsoleWrapper consoleWrapper = null, IPixelBufferFactory bufferFactory = null)
         {
-            ConsoleWrapper = consoleWrapper ?? new ConsoleWrapper();
-            BufferFactory = bufferFactory ?? new PixelBufferFactory(ConsoleWrapper);
+            Console = consoleWrapper ?? new ConsoleWrapper();
+            BufferFactory = bufferFactory ?? new PixelBufferFactory(Console);
             Buffer = BufferFactory.CreateForTerminalScreen();
             Renderer = new ScreenRenderer();
             Windows = new List<TerminalScreenWindow>();
         }
 
-        public IConsoleWrapper ConsoleWrapper { get; }
+        public IConsoleWrapper Console { get; }
         public ICollection<TerminalScreenWindow> Windows { get; }
         public ScreenRenderer Renderer { get; }
         public IPixelBufferFactory BufferFactory { get; }
@@ -28,12 +28,12 @@ namespace CmdArt.Screen
                 foreach (var window in Windows)
                     window.Render();
             }
-            Renderer.Render(Buffer, ConsoleWrapper, force);
+            Renderer.Render(Buffer, Console, force);
         }
 
         public TerminalScreenWindow CreateNewWindow(Region region)
         {
-            if (!ConsoleWrapper.WindowRegion.CompletelyContains(region))
+            if (!Console.WindowRegion.CompletelyContains(region))
                 throw new ArgumentOutOfRangeException(nameof(region), "Specified region must be entirely contained within the screen");
             if (Windows.Any(existing => existing.ScreenRegion.Overlaps(region)))
                 throw new ArgumentOutOfRangeException(nameof(region), "Specified region may not overlap with any existing window regions");
@@ -45,7 +45,7 @@ namespace CmdArt.Screen
 
         public void ResizeConsole(ISize size, bool preserveContents = false)
         {
-            ConsoleWrapper.SetSize(size);
+            Console.SetSize(size);
             var buffer = BufferFactory.CreateForTerminalScreen();
             if (preserveContents)
             {

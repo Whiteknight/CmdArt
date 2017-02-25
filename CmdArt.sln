@@ -13,6 +13,14 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CmdArt.Tests", "CmdArt.Test
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CmdArt.Test.ImageRender", "CmdArt.Test.ImageRender\CmdArt.Test.ImageRender.csproj", "{C67DFD19-5E1F-42AF-B3AC-861E8132107A}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{96077BD8-6822-4AA2-B0DA-72491DF6746A}"
+	ProjectSection(SolutionItems) = preProject
+		LICENSE = LICENSE
+		README.md = README.md
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CmdArt.Test.ImageWindow", "CmdArt.Test.ImageWindow\CmdArt.Test.ImageWindow.csproj", "{37869A65-81AB-4726-8000-E55339AD4EA5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,6 +43,10 @@ Global
 		{C67DFD19-5E1F-42AF-B3AC-861E8132107A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C67DFD19-5E1F-42AF-B3AC-861E8132107A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C67DFD19-5E1F-42AF-B3AC-861E8132107A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{37869A65-81AB-4726-8000-E55339AD4EA5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{37869A65-81AB-4726-8000-E55339AD4EA5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{37869A65-81AB-4726-8000-E55339AD4EA5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{37869A65-81AB-4726-8000-E55339AD4EA5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -42,5 +54,6 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{494F6929-24DD-4EF3-A996-4596B42B52B1} = {8BAB832A-885E-45A3-99F7-34AE6E46236B}
 		{C67DFD19-5E1F-42AF-B3AC-861E8132107A} = {8BAB832A-885E-45A3-99F7-34AE6E46236B}
+		{37869A65-81AB-4726-8000-E55339AD4EA5} = {8BAB832A-885E-45A3-99F7-34AE6E46236B}
 	EndGlobalSection
 EndGlobal
