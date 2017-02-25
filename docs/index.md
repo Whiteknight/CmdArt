@@ -24,6 +24,12 @@ To display an image in the console, you load the `Bitmap` object into your progr
     var image = CmdArt.Images.Image.BuildFromImageFile(fileName, new Size(100, 50));
     image.RenderTo(screen.Buffer);
     screen.Render();
+    
+Here are two examples of the wonderful output of the CmdArt image downsampling algorithm:
+
+![Ugly Mona](MonaLisa1.png)
+
+![Ugly Night](StarryNight1.png)
 
 ### Windowing
 
@@ -43,7 +49,9 @@ A `TerminalScreenWindow` object allows you to project from a region in one buffe
     image.RenderTo(window.SourceBuffer);
     screen.Render(includeWindows: true);
 
-You can create many windows on your screen but they may not overlap with one another. 
+You can create many windows on your screen but they may not overlap with one another. Here's an example of what this accomplishes:
+
+![Ugly Mona Face](MonaLisa2.png)
 
 ## Contributing
 
