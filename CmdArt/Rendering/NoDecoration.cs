@@ -9,7 +9,7 @@ namespace CmdArt.Rendering
             return region;
         }
 
-        public Region Render(IPixelBuffer buffer, Region region)
+        public Region RenderTo(IPixelBuffer buffer, Region region)
         {
             return region;
         }

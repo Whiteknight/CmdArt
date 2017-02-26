@@ -1,4 +1,5 @@
-﻿using CmdArt.Screen;
+﻿using CmdArt.Rendering.Boarders;
+using CmdArt.Screen;
 using System;
 
 namespace CmdArt.Test.ImageWindow
@@ -12,7 +13,9 @@ namespace CmdArt.Test.ImageWindow
             var fileName = @"Media\MonaLisa.jpg";
             var image = CmdArt.Images.Image.BuildFromImageFile(fileName, new Size(100, 50));
 
-            var window = screen.CreateNewWindow(new Region(5, 5, 20, 16));
+            var frame = Boarder.SolidDoubleLine();
+            var imageRegion = frame.RenderTo(screen.Buffer, new Region(4, 4, 22, 18));
+            var window = screen.CreateNewWindow(imageRegion);
             var buffer = screen.BufferFactory.Create(image.Size);
             window.SetSourceBuffer(buffer, new Location(7, 4));
 

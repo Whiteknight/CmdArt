@@ -21,7 +21,7 @@ namespace CmdArt.Rendering
             return region.RelativeToAbsolute(new Region(2, 0, region.Width - 2, region.Height));
         }
 
-        public Region Render(IPixelBuffer buffer, Region region)
+        public Region RenderTo(IPixelBuffer buffer, Region region)
         {
             buffer.Set(region.Left, region.Top, _palette, _glyph);
             return InnerRegion(region);

@@ -108,7 +108,6 @@
     <Compile Include="Screen\PixelBufferSerializer.cs" />
     <Compile Include="Screen\ScreenPixel.cs" />
     <Compile Include="Screen\ScreenRenderer.cs" />
-    <Compile Include="Screen\ScreenSpace.cs" />
     <Compile Include="Screen\TerminalScreen.cs" />
     <Compile Include="Screen\TerminalScreenWindow.cs" />
     <Compile Include="Unicode.cs" />

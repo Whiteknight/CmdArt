@@ -54,7 +54,7 @@ namespace CmdArt.Rendering.Boarders
             return region.RelativeToAbsolute(new Region(Left, Top, region.Width - Left - Right, region.Height - Top - Bottom));
         }
 
-        public Region Render(IPixelBuffer buffer, Region region)
+        public Region RenderTo(IPixelBuffer buffer, Region region)
         {
             if (region.Width < 3 || region.Height < 3)
                 return region;
