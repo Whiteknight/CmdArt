@@ -22,7 +22,7 @@ namespace CmdArt.Rendering.Shapes
         public void RenderTo(IPixelBuffer buffer)
         {
             // Rectangle render logic is in IScreenBuffer
-            buffer.Set(_region, _symbol);
+            buffer.SetCharacter(_region, _symbol);
         }
     }
 }

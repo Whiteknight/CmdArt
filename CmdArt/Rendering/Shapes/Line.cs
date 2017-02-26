@@ -1,5 +1,5 @@
-﻿using System;
-using CmdArt.Screen;
+﻿using CmdArt.Screen;
+using System;
 
 namespace CmdArt.Rendering.Shapes
 {
@@ -39,7 +39,7 @@ namespace CmdArt.Rendering.Shapes
             int y = loc1.Top;
             for (int x = loc1.Left; x <= loc2.Left; x++)
             {
-                buffer.Set((steep ? y : x), (steep ? x : y), _symbol);
+                buffer.SetCharacter((steep ? y : x), (steep ? x : y), _symbol);
                 error = error - dy;
                 if (error < 0)
                 {

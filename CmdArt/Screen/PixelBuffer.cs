@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace CmdArt.Screen
+﻿namespace CmdArt.Screen
 {
     public class PixelBuffer : IPixelBuffer
     {
@@ -22,11 +20,6 @@ namespace CmdArt.Screen
 
         public Palette DefaultPalette { get; set; }
 
-        public void Set(int left, int top, Palette palette, char c)
-        {
-            Set(left, top, palette.ByteValue, c);
-        }
-
         public void Set(int left, int top, byte color, char c)
         {
             // Silently ignore update requests outside the buffer region
@@ -42,17 +35,16 @@ namespace CmdArt.Screen
             Raw[left, top].IsUpdated = true;
         }
 
-        public void Set(int left, int top, Palette palette, string s)
+        public void Set(int left, int top, byte color, string s)
         {
             for (int i = 0; i < Size.Width && i < s.Length; i++)
             {
-                Set(left + i, top, palette, s[i]);
+                Set(left + i, top, color, s[i]);
             }
         }
 
-        public void Set(Region region, Palette palette, char c)
+        public void Set(Region region, byte color, char c)
         {
-            byte color = palette.ByteValue;
             for (int j = region.Top; j < region.Top + region.Height && j < Size.Height; j++)
             {
                 for (int i = region.Left; i < region.Left + region.Width && i < Size.Width; i++)
@@ -62,29 +54,7 @@ namespace CmdArt.Screen
             }
         }
 
-        public void Set(int left, int top, char c)
-        {
-            Set(left, top, DefaultPalette, c);
-        }
-
-        public void Set(int left, int top, string s)
-        {
-            Set(left, top, DefaultPalette, s);
-        }
-
-        public void Set(Region region, char c)
-        {
-            Set(region, DefaultPalette, c);
-        }
-
-        public void SetColor(int left, int top, Palette palette)
-        {
-            var color = palette.ByteValue;
-
-            SetColor(left, top, color);
-        }
-
-        private void SetColor(int left, int top, byte color)
+        public void SetColor(int left, int top, byte color)
         {
             // Silently ignore update requests outside the buffer region
             if (IsOutsideBounds(left, top))
@@ -98,9 +68,8 @@ namespace CmdArt.Screen
             Raw[left, top].IsUpdated = true;
         }
 
-        public void SetColor(Region region, Palette palette)
+        public void SetColor(Region region, byte color)
         {
-            byte color = palette.ByteValue;
             for (int j = region.Top; j < region.Top + region.Height && j < Size.Height; j++)
             {
                 for (int i = region.Left; i < region.Left + region.Width && i < Size.Width; i++)
@@ -135,26 +104,14 @@ namespace CmdArt.Screen
             }
         }
 
-        public IEnumerable<ILocation> AllVisible()
-        {
-            for (int j = 0; j < Size.Height; j++)
-            {
-                for (int i = 0; i < Size.Width; i++)
-                {
-                    if (Raw[i, j].IsVisible)
-                        yield return new Location(i, j);
-                }
-            }
-        }
-
         public void Unset(int left, int top)
         {
-            Set(left, top, DefaultPalette, '\0');
+            Set(left, top, DefaultPalette.ByteValue, '\0');
         }
 
         public void Unset(Region region)
         {
-            Set(region, DefaultPalette, '\0');
+            Set(region, DefaultPalette.ByteValue, '\0');
         }
 
         private bool IsOutsideBounds(int left, int top)
@@ -189,19 +146,5 @@ namespace CmdArt.Screen
                 return ScreenPixel.Transparent;
             return Raw[left, top];
         }
-
-        //public void ForeachVisible(Action<ScreenPixel> act)
-        //{
-        //    for (int j = 0; j < Size.Height; j++)
-        //    {
-        //        for (int i = 0; i < Size.Width; i++)
-        //        {
-        //            if (_buffer[i, j].Character != '\0')
-        //            {
-        //                act(_buffer[i, j]);
-        //            }
-        //        }
-        //    }
-        //}
     }
 }

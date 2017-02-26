@@ -1,5 +1,5 @@
-﻿using System;
-using CmdArt.Screen;
+﻿using CmdArt.Screen;
+using System;
 
 namespace CmdArt.Rendering.Shapes
 {
@@ -22,18 +22,17 @@ namespace CmdArt.Rendering.Shapes
             int x = _radius;
             int y = 0;
             int err = 0;
-            
 
             while (x >= y)
             {
-                buffer.Set(_center.Left + x, _center.Top + y, _symbol);
-                buffer.Set(_center.Left + y, _center.Top + x, _symbol);
-                buffer.Set(_center.Left - y, _center.Top + x, _symbol);
-                buffer.Set(_center.Left - x, _center.Top + y, _symbol);
-                buffer.Set(_center.Left - x, _center.Top - y, _symbol);
-                buffer.Set(_center.Left - y, _center.Top - x, _symbol);
-                buffer.Set(_center.Left + y, _center.Top - x, _symbol);
-                buffer.Set(_center.Left + x, _center.Top - y, _symbol);
+                buffer.SetCharacter(_center.Left + x, _center.Top + y, _symbol);
+                buffer.SetCharacter(_center.Left + y, _center.Top + x, _symbol);
+                buffer.SetCharacter(_center.Left - y, _center.Top + x, _symbol);
+                buffer.SetCharacter(_center.Left - x, _center.Top + y, _symbol);
+                buffer.SetCharacter(_center.Left - x, _center.Top - y, _symbol);
+                buffer.SetCharacter(_center.Left - y, _center.Top - x, _symbol);
+                buffer.SetCharacter(_center.Left + y, _center.Top - x, _symbol);
+                buffer.SetCharacter(_center.Left + x, _center.Top - y, _symbol);
 
                 y += 1;
                 err += 1 + 2 * y;
