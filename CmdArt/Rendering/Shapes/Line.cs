@@ -8,13 +8,22 @@ namespace CmdArt.Rendering.Shapes
         private readonly ILocation _loc1;
         private readonly ILocation _loc2;
         private readonly char _symbol;
+        private readonly byte _color;
 
-        public Line(ILocation loc1, ILocation loc2, char symbol)
+        public Line(ILocation loc1, ILocation loc2, char symbol, byte color)
         {
             _loc1 = loc1;
             _loc2 = loc2;
             _symbol = symbol;
+            _color = color;
         }
+
+        public Line(ILocation loc1, ILocation loc2, char symbol, Palette palette)
+            : this(loc1, loc2, symbol, palette.ByteValue)
+        {
+        }
+
+        // TODO: Constructor take a string, and print the characters of the string along the line.
 
         public void RenderTo(IPixelBuffer buffer)
         {
@@ -39,7 +48,7 @@ namespace CmdArt.Rendering.Shapes
             int y = loc1.Top;
             for (int x = loc1.Left; x <= loc2.Left; x++)
             {
-                buffer.SetCharacter((steep ? y : x), (steep ? x : y), _symbol);
+                buffer.Set((steep ? y : x), (steep ? x : y), _color, _symbol);
                 error = error - dy;
                 if (error < 0)
                 {

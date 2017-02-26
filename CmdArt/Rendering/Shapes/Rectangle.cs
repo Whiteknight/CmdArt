@@ -6,23 +6,25 @@ namespace CmdArt.Rendering.Shapes
     {
         private readonly Region _region;
         private readonly char _symbol;
+        private readonly byte _color;
 
         // TODO: Bool flag to fill or not
-        public Rectangle(Region region)
-            : this(region, ' ')
+        public Rectangle(Region region, byte color)
+            : this(region, ' ', color)
         {
         }
 
-        public Rectangle(Region region, char symbol)
+        public Rectangle(Region region, char symbol, byte color)
         {
             _region = region;
             _symbol = symbol;
+            _color = color;
         }
 
         public void RenderTo(IPixelBuffer buffer)
         {
-            // Rectangle render logic is in IScreenBuffer
-            buffer.SetCharacter(_region, _symbol);
+            // Rectangle render logic is in the buffer
+            buffer.Set(_region, _color, _symbol);
         }
     }
 }
