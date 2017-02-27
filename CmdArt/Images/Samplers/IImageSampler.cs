@@ -6,6 +6,6 @@ namespace CmdArt.Images.Samplers
     // a large image before rendering in the console.
     public interface IImageSampler
     {
-        Color GetSampleColor(ISize bufferSize, Bitmap bmp, int left, int top, Color bgColor);
+        Color GetSampleColor(ISize bufferSize, Bitmap bitmap, int left, int top, Color bgColor);
     }
 }

@@ -6,12 +6,18 @@ namespace CmdArt
     {
         int Width { get; }
         int Height { get; }
+        bool IsZeroSize { get; }
     }
 
     public class Size : ISize
     {
         public Size(int width, int height)
         {
+            if (width < 0)
+                throw new ArgumentOutOfRangeException(nameof(width));
+            if (height < 0)
+                throw new ArgumentOutOfRangeException(nameof(height));
+
             Height = height;
             Width = width;
         }
@@ -37,6 +43,8 @@ namespace CmdArt
             var newHeight = (int)(startHeight * ((double)container.Width / (double)startWidth));
             return new Size(container.Width, newHeight);
         }
+
+        public bool IsZeroSize => Height == 0 || Width == 0;
 
         public bool Equals(ISize other)
         {

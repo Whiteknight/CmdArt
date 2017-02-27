@@ -7,6 +7,14 @@ namespace CmdArt
     {
         public Region(int left, int top, int width, int height)
         {
+            if (left < 0)
+                throw new ArgumentOutOfRangeException(nameof(left));
+            if (top < 0)
+                throw new ArgumentOutOfRangeException(nameof(top));
+            if (width < 0)
+                throw new ArgumentOutOfRangeException(nameof(width));
+            if (height < 0)
+                throw new ArgumentOutOfRangeException(nameof(height));
             Left = left;
             Top = top;
             Width = width;
@@ -15,6 +23,10 @@ namespace CmdArt
 
         public Region(int left, int top, ISize size)
         {
+            if (left < 0)
+                throw new ArgumentOutOfRangeException(nameof(left));
+            if (top < 0)
+                throw new ArgumentOutOfRangeException(nameof(top));
             Left = left;
             Top = top;
             Width = size.Width;
@@ -23,6 +35,10 @@ namespace CmdArt
 
         public Region(ILocation location, int width, int height)
         {
+            if (width < 0)
+                throw new ArgumentOutOfRangeException(nameof(width));
+            if (height < 0)
+                throw new ArgumentOutOfRangeException(nameof(height));
             Left = location.Left;
             Top = location.Top;
             Width = width;
@@ -46,6 +62,8 @@ namespace CmdArt
 
         public ISize RegionSize => new Size(Width, Height);
         public ILocation RegionLocation => new Location(Left, Top);
+
+        public bool IsZeroSize => Width == 0 || Height == 0;
 
         public Region RelativeToAbsolute(Region relative)
         {

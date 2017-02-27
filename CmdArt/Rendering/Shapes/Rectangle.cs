@@ -23,6 +23,8 @@ namespace CmdArt.Rendering.Shapes
 
         public void RenderTo(IPixelBuffer buffer)
         {
+            if (buffer == null)
+                throw new System.ArgumentNullException(nameof(buffer));
             // Rectangle render logic is in the buffer
             buffer.Set(_region, _color, _symbol);
         }

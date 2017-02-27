@@ -82,7 +82,7 @@ namespace CmdArt.Images
 
             private IImageFrame BuildBuffer(ISize size, Bitmap bmp, FrameDimension frameDimension, int idx)
             {
-                ImageBrush[,] buffer = new ImageBrush[size.Height, size.Width];
+                var buffer = new ImageBrush[size.Height, size.Width];
                 bmp.SelectActiveFrame(frameDimension, idx);
 
                 for (int i = 0; i < size.Height; i++)
@@ -90,8 +90,7 @@ namespace CmdArt.Images
                     for (int j = 0; j < size.Width; j++)
                     {
                         Color c = _sampler.GetSampleColor(size, bmp, j, i, _transparencyColor);
-                        ImageBrush brush = _converter.CreateBrush(c);
-                        buffer[i, j] = brush;
+                        buffer[i, j] = _converter.CreateBrush(c);
                     }
                 }
 
@@ -114,21 +113,6 @@ namespace CmdArt.Images
             }
         }
 
-        //private static Dictionary<int, string> framePropertiesToFetch = new Dictionary<int, string> {
-        //    { 0x5100, ImagePropertyConstants.GifFrameTimeMs }
-        //};
-
-        //private Dictionary<string, object> GetFrameProperties(Bitmap bmp)
-        //{
-        //    IList<PropertyItem> items = bmp.PropertyItems.Where(pi => framePropertiesToFetch.ContainsKey(pi.Id)).ToList();
-        //    if (!items.Any())
-        //        return null;
-
-
-        //}
-
-        //private long Parse
-
         private class ImageFrame : IImageFrame
         {
             private readonly ImageBrush[,] _buffer;
@@ -144,7 +128,7 @@ namespace CmdArt.Images
 
             public ImageBrush[,] GetRegionContents(Region region)
             {
-                ImageBrush[,] brushes = new ImageBrush[region.Height, region.Width];
+                var brushes = new ImageBrush[region.Height, region.Width];
 
                 for (int i = 0; i < region.Height && (i + region.Top) < TotalSize.Height; i++)
                 {
@@ -156,8 +140,6 @@ namespace CmdArt.Images
 
                 return brushes;
             }
-
-            //public event EventHandler<ContentChangedEventArgs> ContentChanged;
 
             public object GetProperty(string propertyName)
             {

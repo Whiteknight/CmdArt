@@ -67,7 +67,6 @@
     <Compile Include="Rendering\Boarders\DropShadow.cs" />
     <Compile Include="Rendering\DecorationSide.cs" />
     <Compile Include="Rendering\IDecoration.cs" />
-    <Compile Include="Images\Animator.cs" />
     <Compile Include="Colors\ColorExtensions.cs" />
     <Compile Include="Images\Sources\ColorsBrushSource.cs" />
     <Compile Include="Colors\ConsoleColorUtilityExtensions.cs" />
@@ -95,6 +94,7 @@
     <Compile Include="Rendering\Shapes\Circle.cs" />
     <Compile Include="Rendering\Shapes\Line.cs" />
     <Compile Include="Rendering\Shapes\Rectangle.cs" />
+    <Compile Include="Rendering\Strings\CircularTextBuffer.cs" />
     <Compile Include="Rendering\Strings\StringExtensions.cs" />
     <Compile Include="Rendering\Strings\Text.cs" />
     <Compile Include="Screen\BufferConsoleWrapper.cs" />

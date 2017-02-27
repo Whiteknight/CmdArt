@@ -15,13 +15,13 @@ namespace CmdArt.Images.Converters
             int gBgComp = (gBright < 1 ? 0 : 2) | (gBright >= 4 ? 8 : 0);
             int bBgComp = (bBright < 1 ? 0 : 1) | (bBright >= 4 ? 8 : 0);
 
-            ConsoleColor bgColor = (ConsoleColor)(rBgComp | gBgComp | bBgComp);
+            var bgColor = (ConsoleColor)(rBgComp | gBgComp | bBgComp);
 
             int rFgComp = (rBright < 2 ? 0 : 4) | (rBright >= 5 ? 8 : 0);
             int gFgComp = (gBright < 2 ? 0 : 2) | (gBright >= 5 ? 8 : 0);
             int bFgComp = (bBright < 2 ? 0 : 1) | (bBright >= 5 ? 8 : 0);
 
-            ConsoleColor fgColor = (ConsoleColor)(rFgComp | gFgComp | bFgComp);
+            var fgColor = (ConsoleColor)(rFgComp | gFgComp | bFgComp);
             char ch = ' ';
 
             return new ImageBrush(new Palette(bgColor, fgColor), ch);

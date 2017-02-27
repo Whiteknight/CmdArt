@@ -7,6 +7,9 @@ namespace CmdArt.Utilities
     {
         public static IEnumerable<string> WrapString(string str, int chunkSize)
         {
+            if (string.IsNullOrEmpty(str))
+                yield break;
+
             int numChunks = str.Length / chunkSize;
 
             IEnumerable<string> wholeChunks = Enumerable.Range(0, numChunks)

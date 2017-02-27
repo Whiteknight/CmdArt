@@ -23,6 +23,9 @@ namespace CmdArt.Rendering
 
         public Region RenderTo(IPixelBuffer buffer, Region region)
         {
+            if (buffer == null)
+                throw new System.ArgumentNullException(nameof(buffer));
+
             buffer.Set(region.Left, region.Top, _palette, _glyph);
             return InnerRegion(region);
         }

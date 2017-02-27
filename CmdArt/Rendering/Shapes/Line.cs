@@ -12,6 +12,12 @@ namespace CmdArt.Rendering.Shapes
 
         public Line(ILocation loc1, ILocation loc2, char symbol, byte color)
         {
+            if (loc1 == null)
+                throw new ArgumentNullException(nameof(loc1));
+
+            if (loc2 == null)
+                throw new ArgumentNullException(nameof(loc2));
+
             _loc1 = loc1;
             _loc2 = loc2;
             _symbol = symbol;
@@ -27,6 +33,9 @@ namespace CmdArt.Rendering.Shapes
 
         public void RenderTo(IPixelBuffer buffer)
         {
+            if (buffer == null)
+                throw new ArgumentNullException(nameof(buffer));
+
             var loc1 = _loc1;
             var loc2 = _loc2;
             bool steep = Math.Abs(_loc2.Top - _loc1.Top) > Math.Abs(_loc2.Left - _loc1.Left);

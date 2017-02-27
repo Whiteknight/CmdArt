@@ -6,6 +6,9 @@
 
         public TerminalScreenWindow(TerminalScreen screen, Region screenRegion)
         {
+            if (screen == null)
+                throw new System.ArgumentNullException(nameof(screen));
+
             _screen = screen;
             Size = screenRegion.RegionSize;
             ScreenLocation = screenRegion.RegionLocation;
@@ -23,6 +26,9 @@
 
         public void SetSourceBuffer(IPixelBuffer sourceBuffer, ILocation sourceLocation = null)
         {
+            if (sourceBuffer == null)
+                throw new System.ArgumentNullException(nameof(sourceBuffer));
+
             SourceBuffer = sourceBuffer;
             SourceLocation = sourceLocation ?? Location.Origin;
             // TODO: Check to make sure that the region is completely within the bounds of the source buffer

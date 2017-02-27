@@ -6,6 +6,9 @@ namespace CmdArt.Screen
     {
         public int[,] Serialize(IPixelBuffer buffer)
         {
+            if (buffer == null)
+                throw new System.ArgumentNullException(nameof(buffer));
+
             var array = new int[buffer.Size.Width, buffer.Size.Height];
 
             for (int j = 0; j < buffer.Size.Height; j++)
@@ -21,6 +24,12 @@ namespace CmdArt.Screen
 
         public string SerializeToCSharpCode(IPixelBuffer buffer, string varName)
         {
+            if (buffer == null)
+                throw new System.ArgumentNullException(nameof(buffer));
+
+            if (string.IsNullOrWhiteSpace(varName))
+                throw new System.ArgumentNullException(nameof(varName));
+
             var builder = new StringBuilder();
             builder.AppendFormat("int[,] {0} = new int[{1},{2}];\n", varName, buffer.Size.Width, buffer.Size.Height);
 
@@ -38,6 +47,9 @@ namespace CmdArt.Screen
 
         public IPixelBuffer Deserialize(int[,] array)
         {
+            if (array == null)
+                throw new System.ArgumentNullException(nameof(array));
+
             int width = array.GetLength(0);
             int height = array.GetLength(1);
             var size = new Size(width, height);

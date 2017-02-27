@@ -13,6 +13,9 @@ namespace CmdArt.Rendering.Shapes
         // TODO: Bool flag to fill or not
         public Circle(ILocation center, int radius, char symbol, byte color)
         {
+            if (center == null)
+                throw new ArgumentNullException(nameof(center));
+
             _center = center ?? new Location(0, 0);
             _radius = Math.Abs(radius);
             _symbol = symbol;
@@ -26,6 +29,9 @@ namespace CmdArt.Rendering.Shapes
 
         public void RenderTo(IPixelBuffer buffer)
         {
+            if (buffer == null)
+                throw new ArgumentNullException(nameof(buffer));
+
             int x = _radius;
             int y = 0;
             int err = 0;

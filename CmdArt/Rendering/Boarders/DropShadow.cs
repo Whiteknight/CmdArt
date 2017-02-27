@@ -18,6 +18,9 @@ namespace CmdArt.Rendering.Boarders
 
         public Region RenderTo(IPixelBuffer buffer, Region region)
         {
+            if (buffer == null)
+                throw new System.ArgumentNullException(nameof(buffer));
+
             for (int i = 1; i < region.Height - 1; i++)
             {
                 buffer.Set(region.Left + region.Width - 1, region.Top + i, _palette, ' ');

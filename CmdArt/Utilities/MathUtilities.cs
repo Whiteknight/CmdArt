@@ -8,6 +8,9 @@ namespace CmdArt.Utilities
         public static T Min<T>(params T[] values)
             where T : IComparable<T>
         {
+            if (values == null)
+                throw new ArgumentNullException(nameof(values));
+
             return values.Min();
         }
     }

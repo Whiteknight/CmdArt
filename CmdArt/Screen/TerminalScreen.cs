@@ -45,6 +45,9 @@ namespace CmdArt.Screen
 
         public void ResizeConsole(ISize size, bool preserveContents = false)
         {
+            if (size == null)
+                throw new ArgumentNullException(nameof(size));
+
             Console.SetSize(size);
             var buffer = BufferFactory.CreateForTerminalScreen();
             if (preserveContents)

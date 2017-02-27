@@ -33,14 +33,18 @@ namespace CmdArt.Screen
 
         public void SetCursorPosition(int i, int j)
         {
-            _left = i;
-            _top = j;
+            if (i > 0)
+                _left = i;
+            if (j > 0)
+                _top = j;
         }
 
         public void SetSize(int width, int height)
         {
-            _width = width;
-            _height = height;
+            if (width > 0)
+                _width = width;
+            if (height > 0)
+                _height = height;
             Buffer = new PixelBuffer(_width, _height);
         }
 
@@ -52,6 +56,7 @@ namespace CmdArt.Screen
         public Region WindowRegion => new Region(0, 0, _width, _height);
         public Region WindowMaxRegion => new Region(0, 0, 200, 100);
         public Region WindowMaxVerticalRegion => new Region(0, 0, _width, 100);
+
         public Palette GetCurrentPalette()
         {
             return new Palette(_currentColor);

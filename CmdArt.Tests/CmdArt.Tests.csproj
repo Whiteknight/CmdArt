@@ -68,6 +68,7 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
+    <Compile Include="CircularTextBufferTests.cs" />
     <Compile Include="PaletteTest.cs" />
     <Compile Include="PixelBufferTest.cs" />
     <Compile Include="RegionTest.cs" />

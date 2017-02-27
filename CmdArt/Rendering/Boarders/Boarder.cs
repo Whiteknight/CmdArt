@@ -1,6 +1,6 @@
-﻿using System;
+﻿using CmdArt.Screen;
+using System;
 using System.Diagnostics;
-using CmdArt.Screen;
 
 namespace CmdArt.Rendering.Boarders
 {
@@ -15,8 +15,11 @@ namespace CmdArt.Rendering.Boarders
         private readonly bool _right;
         private readonly bool _bottom;
 
-        public Boarder(IBoarderChars chars, Palette palette, DecorationSide sides = DecorationSide.All, string title = null)           
+        public Boarder(IBoarderChars chars, Palette palette, DecorationSide sides = DecorationSide.All, string title = null)
         {
+            if (chars == null)
+                throw new ArgumentNullException(nameof(chars));
+
             _chars = chars;
             _palette = palette;
             _sides = sides;
@@ -34,15 +37,15 @@ namespace CmdArt.Rendering.Boarders
 
         public Boarder Partial(DecorationSide sides)
         {
-            return new Boarder( _chars, _palette, sides, _title);
+            return new Boarder(_chars, _palette, sides, _title);
         }
 
         public Boarder WithTitle(string title)
         {
-            return new Boarder(_chars, _palette, _sides, title);
+            return new Boarder(_chars, _palette, _sides, title ?? string.Empty);
         }
 
-        public int Top { get { return _top ? 1 : 0;  } }
+        public int Top { get { return _top ? 1 : 0; } }
         public int Left { get { return _left ? 1 : 0; } }
         public int Right { get { return _right ? 1 : 0; } }
         public int Bottom { get { return _bottom ? 1 : 0; } }
@@ -56,6 +59,9 @@ namespace CmdArt.Rendering.Boarders
 
         public Region RenderTo(IPixelBuffer buffer, Region region)
         {
+            if (buffer == null)
+                throw new ArgumentNullException(nameof(buffer));
+
             if (region.Width < 3 || region.Height < 3)
                 return region;
 
@@ -120,6 +126,9 @@ namespace CmdArt.Rendering.Boarders
         // TODO: Move this to a method on BoarderChars
         public static Boarder FromStringArray(string[] chars)
         {
+            if (chars == null)
+                throw new ArgumentNullException(nameof(chars));
+
             Debug.Assert(chars.Length == 3);
             int width = chars[0].Length;
             CustomBoarderChars bc;
@@ -132,7 +141,7 @@ namespace CmdArt.Rendering.Boarders
 
             return new Boarder(bc, Palette.Default);
         }
-        
+
         // TODO: Change all these to be subclasses.
         public static Boarder SolidDoubleLine()
         {

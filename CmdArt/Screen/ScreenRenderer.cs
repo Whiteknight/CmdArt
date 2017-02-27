@@ -4,6 +4,12 @@
     {
         public void Render(IPixelBuffer buffer, IConsoleWrapper wrapper, bool force = false)
         {
+            if (buffer == null)
+                throw new System.ArgumentNullException(nameof(buffer));
+
+            if (wrapper == null)
+                throw new System.ArgumentNullException(nameof(wrapper));
+
             bool continues = false;
             byte currentColor = buffer.DefaultPalette.ByteValue;
             wrapper.SetColor(currentColor);

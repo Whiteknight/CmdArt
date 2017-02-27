@@ -13,6 +13,9 @@ namespace CmdArt.Screen
 
         public PixelBufferFactory(IConsoleWrapper console)
         {
+            if (console == null)
+                throw new System.ArgumentNullException(nameof(console));
+
             _console = console;
         }
 

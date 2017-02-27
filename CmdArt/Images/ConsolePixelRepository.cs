@@ -14,8 +14,8 @@ namespace CmdArt.Images
 
         public ConsolePixelRepository(IEnumerable<IBrushSource> sources)
         {
-            Dictionary<int, ImageBrush> pixels = new Dictionary<int, ImageBrush>();
-            Dictionary<int, ImageBrush> gsPixels = new Dictionary<int, ImageBrush>();
+            var pixels = new Dictionary<int, ImageBrush>();
+            var gsPixels = new Dictionary<int, ImageBrush>();
             foreach (ImageBrush p in sources.SelectMany(s => s.GetPixels()))
             {
                 if (!pixels.ContainsKey(p.AsInt))

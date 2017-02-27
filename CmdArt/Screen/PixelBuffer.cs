@@ -11,6 +11,11 @@
 
         public PixelBuffer(ISize size)
         {
+            if (size == null)
+                throw new System.ArgumentNullException(nameof(size));
+            if (size.IsZeroSize)
+                throw new System.ArgumentOutOfRangeException(nameof(size));
+
             Size = size;
             Raw = new ScreenPixel[size.Width, size.Height];
             DefaultPalette = Palette.Default;

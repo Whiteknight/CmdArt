@@ -15,8 +15,8 @@
             Left = left;
         }
 
-        public int Left { get; private set; }
-        public int Top { get; private set; }
+        public int Left { get; }
+        public int Top { get; }
 
         public static ILocation Origin => new Location(0, 0);
     }

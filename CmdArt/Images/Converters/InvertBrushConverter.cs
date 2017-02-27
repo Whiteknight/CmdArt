@@ -8,6 +8,9 @@ namespace CmdArt.Images.Converters
 
         public InvertBrushConverter(IBrushConverter inner)
         {
+            if (inner == null)
+                throw new System.ArgumentNullException(nameof(inner));
+
             _inner = inner;
         }
 
