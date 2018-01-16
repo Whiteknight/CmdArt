@@ -26,10 +26,15 @@ namespace CmdArt.Images
             if (targetSize.Height <= 0 || targetSize.Width <= 0)
                 throw new Exception("Width and height must be strictly positive");
 
-            var size = Size.FitButMaintainAspectRatio(targetSize, bitmap.Width, bitmap.Height);
+            ISize size;
+            if (maintainAspectRatio)
+                size = Size.FitButMaintainAspectRatio(targetSize, (uint)bitmap.Width, (uint)bitmap.Height);
+            else
+                size = targetSize;
 
-            IImageFrameBuilder imageFrameBuilder = new ImageFrameBuilder(bitmap, size, _sampler, _converter, _transparencyColor);
-            return new ImageBuffer(imageFrameBuilder, targetSize);
+
+            var imageFrameBuilder = new ImageFrameBuilder(bitmap, size, _sampler, _converter, _transparencyColor);
+            return new ImageBuffer(imageFrameBuilder, size);
         }
 
         private class ImageFrameBuilder : IImageFrameBuilder
@@ -85,11 +90,11 @@ namespace CmdArt.Images
                 var buffer = new ImageBrush[size.Height, size.Width];
                 bmp.SelectActiveFrame(frameDimension, idx);
 
-                for (int i = 0; i < size.Height; i++)
+                for (var i = 0; i < size.Height; i++)
                 {
-                    for (int j = 0; j < size.Width; j++)
+                    for (var j = 0; j < size.Width; j++)
                     {
-                        Color c = _sampler.GetSampleColor(size, bmp, j, i, _transparencyColor);
+                        var c = _sampler.GetSampleColor(size, bmp, j, i, _transparencyColor);
                         buffer[i, j] = _converter.CreateBrush(c);
                     }
                 }
@@ -99,10 +104,10 @@ namespace CmdArt.Images
                 // TODO: Move PropertyItem parsing out into separate classes? Do existing libraries exist that might
                 // do this for us?
                 // TODO: Are there any other per-frame properties we want?
-                PropertyItem gifFrameTimeProp = bmp.PropertyItems.FirstOrDefault(pi => pi.Id == 0x5100);
+                var gifFrameTimeProp = bmp.PropertyItems.FirstOrDefault(pi => pi.Id == 0x5100);
                 if (gifFrameTimeProp != null)
                 {
-                    byte[] b = gifFrameTimeProp.Value;
+                    var b = gifFrameTimeProp.Value;
                     long value = b[idx * 4] | (b[(idx * 4) + 1] << 8) | (b[(idx * 4) + 2] << 16) | (b[(idx * 4) + 3] << 24);
                     value = value * 10; // gif frame times are in centi-seconds, not milli-seconds
                     properties = new Dictionary<string, object>();
@@ -130,9 +135,9 @@ namespace CmdArt.Images
             {
                 var brushes = new ImageBrush[region.Height, region.Width];
 
-                for (int i = 0; i < region.Height && (i + region.Top) < TotalSize.Height; i++)
+                for (var i = 0; i < region.Height && (i + region.Top) < TotalSize.Height; i++)
                 {
-                    for (int j = 0; j < region.Width && (j + region.Left) < TotalSize.Width; j++)
+                    for (var j = 0; j < region.Width && (j + region.Left) < TotalSize.Width; j++)
                     {
                         brushes[i, j] = _buffer[i + region.Top, j + region.Left];
                     }

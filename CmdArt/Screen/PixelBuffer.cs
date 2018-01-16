@@ -4,7 +4,7 @@
     {
         public ScreenPixel[,] Raw { get; }
 
-        public PixelBuffer(int width, int height)
+        public PixelBuffer(uint width, uint height)
             : this(new Size(width, height))
         {
         }
@@ -25,7 +25,7 @@
 
         public Palette DefaultPalette { get; set; }
 
-        public void Set(int left, int top, byte color, char c)
+        public void Set(uint left, uint top, byte color, char c)
         {
             // Silently ignore update requests outside the buffer region
             if (IsOutsideBounds(left, top))
@@ -40,26 +40,26 @@
             Raw[left, top].IsUpdated = true;
         }
 
-        public void Set(int left, int top, byte color, string s)
+        public void Set(uint left, uint top, byte color, string s)
         {
-            for (int i = 0; i < Size.Width && i < s.Length; i++)
+            for (uint i = 0; i < Size.Width && i < s.Length; i++)
             {
-                Set(left + i, top, color, s[i]);
+                Set(left + i, top, color, s[(int)i]);
             }
         }
 
         public void Set(Region region, byte color, char c)
         {
-            for (int j = region.Top; j < region.Top + region.Height && j < Size.Height; j++)
+            for (uint j = region.Top; j < region.Top + region.Height && j < Size.Height; j++)
             {
-                for (int i = region.Left; i < region.Left + region.Width && i < Size.Width; i++)
+                for (uint i = region.Left; i < region.Left + region.Width && i < Size.Width; i++)
                 {
                     Set(i, j, color, c);
                 }
             }
         }
 
-        public void SetColor(int left, int top, byte color)
+        public void SetColor(uint left, uint top, byte color)
         {
             // Silently ignore update requests outside the buffer region
             if (IsOutsideBounds(left, top))
@@ -75,16 +75,16 @@
 
         public void SetColor(Region region, byte color)
         {
-            for (int j = region.Top; j < region.Top + region.Height && j < Size.Height; j++)
+            for (uint j = region.Top; j < region.Top + region.Height && j < Size.Height; j++)
             {
-                for (int i = region.Left; i < region.Left + region.Width && i < Size.Width; i++)
+                for (uint i = region.Left; i < region.Left + region.Width && i < Size.Width; i++)
                 {
                     SetColor(i, j, color);
                 }
             }
         }
 
-        public void SetCharacter(int left, int top, char c)
+        public void SetCharacter(uint left, uint top, char c)
         {
             // Silently ignore update requests outside the buffer region
             if (IsOutsideBounds(left, top))
@@ -100,16 +100,16 @@
 
         public void SetCharacter(Region region, char c)
         {
-            for (int j = region.Top; j < region.Top + region.Height && j < Size.Height; j++)
+            for (uint j = region.Top; j < region.Top + region.Height && j < Size.Height; j++)
             {
-                for (int i = region.Left; i < region.Left + region.Width && i < Size.Width; i++)
+                for (uint i = region.Left; i < region.Left + region.Width && i < Size.Width; i++)
                 {
                     SetCharacter(i, j, c);
                 }
             }
         }
 
-        public void Unset(int left, int top)
+        public void Unset(uint left, uint top)
         {
             Set(left, top, DefaultPalette.ByteValue, '\0');
         }
@@ -119,33 +119,33 @@
             Set(region, DefaultPalette.ByteValue, '\0');
         }
 
-        private bool IsOutsideBounds(int left, int top)
+        private bool IsOutsideBounds(uint left, uint top)
         {
-            return left < 0 || top < 0 || left >= Size.Width || top >= Size.Height;
+            return left >= Size.Width || top >= Size.Height;
         }
 
-        public bool IsVisible(int left, int top)
+        public bool IsVisible(uint left, uint top)
         {
             if (IsOutsideBounds(left, top))
                 return false;
             return Raw[left, top].IsVisible;
         }
 
-        public bool IsUpdated(int left, int top)
+        public bool IsUpdated(uint left, uint top)
         {
             if (IsOutsideBounds(left, top))
                 return false;
             return Raw[left, top].IsUpdated;
         }
 
-        public void SetUpdated(int left, int top, bool updated)
+        public void SetUpdated(uint left, uint top, bool updated)
         {
             if (IsOutsideBounds(left, top))
                 return;
             Raw[left, top].IsUpdated = updated;
         }
 
-        public ScreenPixel Get(int left, int top)
+        public ScreenPixel Get(uint left, uint top)
         {
             if (IsOutsideBounds(left, top))
                 return ScreenPixel.Transparent;

@@ -5,40 +5,24 @@ namespace CmdArt
 {
     public struct Region : ISize, ILocation
     {
-        public Region(int left, int top, int width, int height)
+        public Region(uint left, uint top, uint width, uint height)
         {
-            if (left < 0)
-                throw new ArgumentOutOfRangeException(nameof(left));
-            if (top < 0)
-                throw new ArgumentOutOfRangeException(nameof(top));
-            if (width < 0)
-                throw new ArgumentOutOfRangeException(nameof(width));
-            if (height < 0)
-                throw new ArgumentOutOfRangeException(nameof(height));
             Left = left;
             Top = top;
             Width = width;
             Height = height;
         }
 
-        public Region(int left, int top, ISize size)
+        public Region(uint left, uint top, ISize size)
         {
-            if (left < 0)
-                throw new ArgumentOutOfRangeException(nameof(left));
-            if (top < 0)
-                throw new ArgumentOutOfRangeException(nameof(top));
             Left = left;
             Top = top;
             Width = size.Width;
             Height = size.Height;
         }
 
-        public Region(ILocation location, int width, int height)
+        public Region(ILocation location, uint width, uint height)
         {
-            if (width < 0)
-                throw new ArgumentOutOfRangeException(nameof(width));
-            if (height < 0)
-                throw new ArgumentOutOfRangeException(nameof(height));
             Left = location.Left;
             Top = location.Top;
             Width = width;
@@ -53,10 +37,10 @@ namespace CmdArt
             Height = size.Height;
         }
 
-        public int Left { get; }
-        public int Top { get; }
-        public int Width { get; }
-        public int Height { get; }
+        public uint Left { get; }
+        public uint Top { get; }
+        public uint Width { get; }
+        public uint Height { get; }
 
         public static Region None => new Region();
 
@@ -72,7 +56,7 @@ namespace CmdArt
 
         public Region Adjust(int leftDelta, int topDelta, int widthDelta, int heightDelta)
         {
-            return new Region(Left + leftDelta, Top + topDelta, Width + widthDelta, Height + heightDelta);
+            return new Region((uint)(Left + leftDelta), (uint)(Top + topDelta), (uint)(Width + widthDelta), (uint)(Height + heightDelta));
         }
 
         public Region Offset(ILocation location)
@@ -82,10 +66,10 @@ namespace CmdArt
 
         public Region Move(int leftDelta, int topDelta)
         {
-            return new Region(Left + leftDelta, Top + topDelta, Width, Height);
+            return new Region((uint)(Left + leftDelta), (uint)(Top + topDelta), Width, Height);
         }
 
-        public Region ShrinkToFit(int width, int height)
+        public Region ShrinkToFit(uint width, uint height)
         {
             if (Height < height)
                 height = Height;
@@ -110,7 +94,7 @@ namespace CmdArt
 
         public string ToString(string fmt)
         {
-            StringBuilder builder = new StringBuilder();
+            var builder = new StringBuilder();
             for (int i = 0; i < fmt.Length; i++)
             {
                 switch (fmt[i])

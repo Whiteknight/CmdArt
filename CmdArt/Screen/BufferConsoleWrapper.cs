@@ -7,10 +7,10 @@ namespace CmdArt.Screen
     public class BufferConsoleWrapper : IConsoleWrapper
     {
         private byte _currentColor;
-        private int _left;
-        private int _top;
-        private int _width;
-        private int _height;
+        private uint _left;
+        private uint _top;
+        private uint _width;
+        private uint _height;
 
         public BufferConsoleWrapper()
         {
@@ -34,17 +34,13 @@ namespace CmdArt.Screen
         public void SetCursorPosition(int i, int j)
         {
             if (i > 0)
-                _left = i;
+                _left = (uint)i;
             if (j > 0)
-                _top = j;
+                _top = (uint)j;
         }
 
         public void SetSize(int width, int height)
         {
-            if (width > 0)
-                _width = width;
-            if (height > 0)
-                _height = height;
             Buffer = new PixelBuffer(_width, _height);
         }
 

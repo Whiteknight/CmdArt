@@ -27,7 +27,7 @@ namespace CmdArt.Screen
             if (console == null)
                 throw new System.ArgumentNullException(nameof(console));
 
-            console.SetCursorPosition(location.Left, location.Top);
+            console.SetCursorPosition((int)location.Left, (int)location.Top);
         }
 
         public static void SetSize(this IConsoleWrapper console, ISize size)
@@ -38,7 +38,7 @@ namespace CmdArt.Screen
             if (size == null)
                 throw new System.ArgumentNullException(nameof(size));
 
-            console.SetSize(size.Width, size.Height);
+            console.SetSize((int)size.Width, (int)size.Height);
         }
     }
 }

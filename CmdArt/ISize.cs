@@ -4,28 +4,23 @@ namespace CmdArt
 {
     public interface ISize : IEquatable<ISize>
     {
-        int Width { get; }
-        int Height { get; }
+        uint Width { get; }
+        uint Height { get; }
         bool IsZeroSize { get; }
     }
 
     public class Size : ISize
     {
-        public Size(int width, int height)
+        public Size(uint width, uint height)
         {
-            if (width < 0)
-                throw new ArgumentOutOfRangeException(nameof(width));
-            if (height < 0)
-                throw new ArgumentOutOfRangeException(nameof(height));
-
             Height = height;
             Width = width;
         }
 
-        public int Width { get; }
-        public int Height { get; }
+        public uint Width { get; }
+        public uint Height { get; }
 
-        public static ISize FitButMaintainAspectRatio(ISize container, int startWidth, int startHeight)
+        public static ISize FitButMaintainAspectRatio(ISize container, uint startWidth, uint startHeight)
         {
             if (startWidth == container.Width && startHeight == container.Height)
                 return container;
@@ -36,11 +31,11 @@ namespace CmdArt
             double rs = ((double)container.Width / (double)container.Height);
             if (rs > ri)
             {
-                var newWidth = (int)(startWidth * ((double)container.Height / (double)startHeight));
+                var newWidth = (uint)(startWidth * ((double)container.Height / (double)startHeight));
                 return new Size(newWidth, container.Height);
             }
 
-            var newHeight = (int)(startHeight * ((double)container.Width / (double)startWidth));
+            var newHeight = (uint)(startHeight * ((double)container.Width / (double)startWidth));
             return new Size(container.Width, newHeight);
         }
 
@@ -57,7 +52,7 @@ namespace CmdArt
         {
             unchecked
             {
-                return (Width * 397) ^ Height;
+                return ((int)Width * 397) ^ (int)Height;
             }
         }
 
@@ -80,6 +75,11 @@ namespace CmdArt
             if (obj.GetType() != this.GetType())
                 return false;
             return Equals((Size)obj);
+        }
+
+        public override string ToString()
+        {
+            return $"{Width}x{Height}";
         }
     }
 }

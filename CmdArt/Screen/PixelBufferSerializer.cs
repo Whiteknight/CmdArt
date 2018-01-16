@@ -11,9 +11,9 @@ namespace CmdArt.Screen
 
             var array = new int[buffer.Size.Width, buffer.Size.Height];
 
-            for (int j = 0; j < buffer.Size.Height; j++)
+            for (uint j = 0; j < buffer.Size.Height; j++)
             {
-                for (int i = 0; i < buffer.Size.Width; i++)
+                for (uint i = 0; i < buffer.Size.Width; i++)
                 {
                     var pixel = buffer.Get(i, j);
                     array[i, j] = pixel.Pack();
@@ -33,9 +33,9 @@ namespace CmdArt.Screen
             var builder = new StringBuilder();
             builder.AppendFormat("int[,] {0} = new int[{1},{2}];\n", varName, buffer.Size.Width, buffer.Size.Height);
 
-            for (int j = 0; j < buffer.Size.Height; j++)
+            for (uint j = 0; j < buffer.Size.Height; j++)
             {
-                for (int i = 0; i < buffer.Size.Width; i++)
+                for (uint i = 0; i < buffer.Size.Width; i++)
                 {
                     var pixel = buffer.Get(i, j);
                     int packed = pixel.Pack();
@@ -52,12 +52,12 @@ namespace CmdArt.Screen
 
             int width = array.GetLength(0);
             int height = array.GetLength(1);
-            var size = new Size(width, height);
+            var size = new Size((uint)width, (uint)height);
             var buffer = new PixelBuffer(size);
 
-            for (int j = 0; j < height; j++)
+            for (uint j = 0; j < height; j++)
             {
-                for (int i = 0; i < width; i++)
+                for (uint i = 0; i < width; i++)
                 {
                     int packed = array[i, j];
                     var pixel = ScreenPixel.FromPackedInt(packed);

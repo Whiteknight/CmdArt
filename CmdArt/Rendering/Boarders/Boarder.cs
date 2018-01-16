@@ -45,10 +45,10 @@ namespace CmdArt.Rendering.Boarders
             return new Boarder(_chars, _palette, _sides, title ?? string.Empty);
         }
 
-        public int Top { get { return _top ? 1 : 0; } }
-        public int Left { get { return _left ? 1 : 0; } }
-        public int Right { get { return _right ? 1 : 0; } }
-        public int Bottom { get { return _bottom ? 1 : 0; } }
+        public uint Top => _top ? (uint)1 : 0;
+        public uint Left => _left ? (uint)1 : 0;
+        public uint Right => _right ? (uint)1 : 0;
+        public uint Bottom => _bottom ? (uint)1 : 0;
 
         public Region InnerRegion(Region region)
         {
@@ -57,13 +57,13 @@ namespace CmdArt.Rendering.Boarders
             return region.RelativeToAbsolute(new Region(Left, Top, region.Width - Left - Right, region.Height - Top - Bottom));
         }
 
-        public Region RenderTo(IPixelBuffer buffer, Region region)
+        public IPixelBuffer RenderTo(IPixelBuffer buffer, Region region)
         {
             if (buffer == null)
                 throw new ArgumentNullException(nameof(buffer));
 
             if (region.Width < 3 || region.Height < 3)
-                return region;
+                throw new Exception("Cannot render a boarder in such a small region");
 
             RenderTopBoarder(buffer, region, _palette);
 
@@ -72,7 +72,8 @@ namespace CmdArt.Rendering.Boarders
 
             RenderBottomBoarder(buffer, region, _palette);
 
-            return InnerRegion(region);
+            var innerRegion = InnerRegion(region);
+            return buffer.CreateWindow(innerRegion);
         }
 
         private void RenderBottomBoarder(IPixelBuffer buffer, Region region, Palette palette)
@@ -80,7 +81,7 @@ namespace CmdArt.Rendering.Boarders
             if (_left || _bottom)
                 buffer.Set(region.Left, region.Top + region.Height - 1, palette, _chars.LowerLeft);
             if (_bottom)
-                buffer.Set(region.Left + 1, region.Top + region.Height - 1, palette, new string(_chars.Horizontal, region.Width - 2));
+                buffer.Set(region.Left + 1, region.Top + region.Height - 1, palette, new string(_chars.Horizontal, (int)region.Width - 2));
             if (_bottom || _right)
                 buffer.Set(region.Left + region.Width - 1, region.Top + region.Height - 1, palette, _chars.LowerRight);
         }
@@ -90,7 +91,7 @@ namespace CmdArt.Rendering.Boarders
             if (_right)
             {
                 for (int i = 1; i < region.Height - 1; i++)
-                    buffer.Set(region.Left + region.Width - 1, region.Top + i, palette, _chars.Vertical);
+                    buffer.Set(region.Left + region.Width - 1, (uint)(region.Top + i), palette, _chars.Vertical);
             }
         }
 
@@ -99,7 +100,7 @@ namespace CmdArt.Rendering.Boarders
             if (_left)
             {
                 for (int i = 1; i < region.Height - 1; i++)
-                    buffer.Set(region.Left, region.Top + i, palette, _chars.Vertical);
+                    buffer.Set(region.Left, (uint)(region.Top + i), palette, _chars.Vertical);
             }
         }
 
@@ -112,11 +113,11 @@ namespace CmdArt.Rendering.Boarders
                 string s;
                 if (!string.IsNullOrEmpty(_title))
                 {
-                    int diff = region.Width - Left - Right - 2 - _title.Length;
+                    int diff = (int)region.Width - (int)Left - (int)Right - 2 - _title.Length;
                     s = new string(_chars.Horizontal, diff / 2) + _chars.TeeLeft + _title + _chars.TeeRight + new string(_chars.Horizontal, (diff / 2) + (diff % 2));
                 }
                 else
-                    s = new string(_chars.Horizontal, region.Width - 2);
+                    s = new string(_chars.Horizontal, (int)region.Width - 2);
                 buffer.Set(region.Left + 1, region.Top, palette, s);
             }
             if (_top || _right)

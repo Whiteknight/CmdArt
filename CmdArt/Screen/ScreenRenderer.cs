@@ -13,9 +13,9 @@
             bool continues = false;
             byte currentColor = buffer.DefaultPalette.ByteValue;
             wrapper.SetColor(currentColor);
-            for (int j = 0; j < buffer.Size.Height; j++)
+            for (uint j = 0; j < buffer.Size.Height; j++)
             {
-                for (int i = 0; i < buffer.Size.Width; i++)
+                for (uint i = 0; i < buffer.Size.Width; i++)
                 {
                     bool isUpdated = false;
                     if (force || buffer.IsUpdated(i, j))
@@ -26,7 +26,7 @@
                     if (isUpdated && buffer.IsVisible(i, j))
                     {
                         if (!continues)
-                            wrapper.SetCursorPosition(i, j);
+                            wrapper.SetCursorPosition((int)i, (int)j);
                         var pixel = buffer.Get(i, j);
                         if (pixel.Color != currentColor)
                         {

@@ -59,6 +59,7 @@
     <Compile Include="Colors\ConsoleColorUtilities.cs" />
     <Compile Include="ILocation.cs" />
     <Compile Include="ISize.cs" />
+    <Compile Include="Location.cs" />
     <Compile Include="Palette.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Region.cs" />
@@ -100,8 +101,10 @@
     <Compile Include="Screen\BufferConsoleWrapper.cs" />
     <Compile Include="Screen\ConsoleWrapper.cs" />
     <Compile Include="Screen\ConsoleWrapperExtensions.cs" />
+    <Compile Include="Screen\IConsoleWrapper.cs" />
     <Compile Include="Screen\ILayer.cs" />
     <Compile Include="Screen\IPixelBuffer.cs" />
+    <Compile Include="Screen\IPixelBufferFactory.cs" />
     <Compile Include="Screen\PixelBuffer.cs" />
     <Compile Include="Screen\PixelBufferExtensions.cs" />
     <Compile Include="Screen\PixelBufferFactory.cs" />
@@ -109,7 +112,7 @@
     <Compile Include="Screen\ScreenPixel.cs" />
     <Compile Include="Screen\ScreenRenderer.cs" />
     <Compile Include="Screen\TerminalScreen.cs" />
-    <Compile Include="Screen\TerminalScreenWindow.cs" />
+    <Compile Include="Screen\PixelBufferWindow.cs" />
     <Compile Include="Unicode.cs" />
     <Compile Include="Utilities\IFactory.cs" />
     <Compile Include="Utilities\MathUtilities.cs" />

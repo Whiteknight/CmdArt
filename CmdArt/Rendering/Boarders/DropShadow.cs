@@ -16,18 +16,19 @@ namespace CmdArt.Rendering.Boarders
             return region.RelativeToAbsolute(new Region(0, 0, region.Width - 1, region.Height - 1));
         }
 
-        public Region RenderTo(IPixelBuffer buffer, Region region)
+        public IPixelBuffer RenderTo(IPixelBuffer buffer, Region region)
         {
             if (buffer == null)
                 throw new System.ArgumentNullException(nameof(buffer));
 
-            for (int i = 1; i < region.Height - 1; i++)
+            for (uint i = 1; i < region.Height - 1; i++)
             {
                 buffer.Set(region.Left + region.Width - 1, region.Top + i, _palette, ' ');
             }
-            buffer.Set(region.Left + 1, region.Top + region.Height - 1, _palette, new string(' ', region.Width - 1));
+            buffer.Set(region.Left + 1, region.Top + region.Height - 1, _palette, new string(' ', (int)region.Width - 1));
 
-            return InnerRegion(region);
+            var innerRegion = InnerRegion(region);
+            return buffer.CreateWindow(innerRegion);
         }
     }
 }

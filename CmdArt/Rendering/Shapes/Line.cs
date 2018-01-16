@@ -46,22 +46,22 @@ namespace CmdArt.Rendering.Shapes
             }
             if (loc1.Left > loc2.Left)
             {
-                ILocation temp = loc1;
+                var temp = loc1;
                 loc1 = _loc2;
                 loc2 = temp;
             }
-            int dx = loc2.Left - loc1.Left;
-            int dy = Math.Abs(loc2.Top - loc1.Top);
+            int dx = (int)loc2.Left - (int)loc1.Left;
+            int dy = Math.Abs((int)loc2.Top - (int)loc1.Top);
             int error = dx / 2;
             int ystep = (loc1.Top < loc2.Top) ? 1 : -1;
-            int y = loc1.Top;
-            for (int x = loc1.Left; x <= loc2.Left; x++)
+            uint y = loc1.Top;
+            for (uint x = loc1.Left; x <= loc2.Left; x++)
             {
                 buffer.Set((steep ? y : x), (steep ? x : y), _color, _symbol);
                 error = error - dy;
                 if (error < 0)
                 {
-                    y += ystep;
+                    y = (uint)((int)y + ystep);
                     error += dx;
                 }
             }

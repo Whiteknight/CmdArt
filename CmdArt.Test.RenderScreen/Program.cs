@@ -13,10 +13,10 @@ namespace CmdArt.Test.RenderScreen
             Console.ReadKey();
 
             screen.Buffer.Clear(Palette.Default);
-            var window = screen.CreateNewWindow(new Region(8, 8, 12, 12));
-            window.SourceBuffer.SetCharacter(window.SourceRegion, '2');
-            for (int i = 0; i < 12; i++)
-                window.SourceBuffer.Set(i, i, 0xE0, '3');
+            var window = screen.Buffer.CreateWindow(new Region(8, 8, 12, 12));
+            window.Set(window.GetFillRegion(), Palette.Default, '2');
+            for (uint i = 0; i < 12; i++)
+                window.Set(i, i, new Palette(ConsoleColor.Yellow, ConsoleColor.DarkRed), '3');
 
             screen.Render(true);
             Console.ReadKey();

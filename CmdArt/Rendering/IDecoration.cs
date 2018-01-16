@@ -4,6 +4,6 @@ namespace CmdArt.Rendering
 {
     public interface IDecoration
     {
-        Region RenderTo(IPixelBuffer buffer, Region region);
+        IPixelBuffer RenderTo(IPixelBuffer buffer, Region region);
     }
 }

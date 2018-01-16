@@ -2,21 +2,6 @@
 
 namespace CmdArt.Screen
 {
-    public interface IConsoleWrapper
-    {
-        void SetForAsciiGraphics();
-        void SetColor(ConsoleColor foreground, ConsoleColor background);
-        void SetCursorPosition(int i, int j);
-        void SetSize(int width, int height);
-        void Write(char c);
-
-        Region WindowRegion { get; }
-        Region WindowMaxRegion { get; }
-        Region WindowMaxVerticalRegion { get; }
-
-        Palette GetCurrentPalette();
-    }
-
     public class ConsoleWrapper : IConsoleWrapper
     {
         public void SetForAsciiGraphics()
@@ -54,10 +39,10 @@ namespace CmdArt.Screen
             Console.Write(c);
         }
 
-        public Region WindowRegion => new Region(0, 0, Console.WindowWidth, Console.WindowHeight - 1);
+        public Region WindowRegion => new Region(0, 0, (uint)Console.WindowWidth, (uint)Console.WindowHeight - 1);
 
-        public Region WindowMaxRegion => new Region(0, 0, Console.LargestWindowWidth, Console.LargestWindowHeight);
+        public Region WindowMaxRegion => new Region(0, 0, (uint)Console.LargestWindowWidth, (uint)Console.LargestWindowHeight);
 
-        public Region WindowMaxVerticalRegion => new Region(0, 0, Console.WindowWidth, Console.LargestWindowHeight);
+        public Region WindowMaxVerticalRegion => new Region(0, 0, (uint)Console.WindowWidth, (uint)Console.LargestWindowHeight);
     }
 }
