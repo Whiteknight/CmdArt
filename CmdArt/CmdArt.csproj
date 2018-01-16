@@ -96,6 +96,7 @@
     <Compile Include="Rendering\Shapes\Line.cs" />
     <Compile Include="Rendering\Shapes\Rectangle.cs" />
     <Compile Include="Rendering\Strings\CircularTextBuffer.cs" />
+    <Compile Include="Rendering\Strings\ForwardScrollingText.cs" />
     <Compile Include="Rendering\Strings\StringExtensions.cs" />
     <Compile Include="Rendering\Strings\Text.cs" />
     <Compile Include="Screen\BufferConsoleWrapper.cs" />
